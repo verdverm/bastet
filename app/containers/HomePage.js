@@ -9,7 +9,7 @@ type Props = {};
 
 function mapStateToProps(state) {
   return {
-    web3: state.web3Reducer.web3Instance
+    web3s: state.web3Reducer
   };
 }
 
@@ -23,38 +23,42 @@ class HomePage extends Component<Props> {
   props: Props;
 
   checkWeb3() {
-    let { web3 } = this.props;
+    let { web3s } = this.props;
 
-    console.log("Checking Web3", web3)
+    console.log("Checking Web3", web3s)
 		// Get the initial account balance so it can be displayed.
-    web3.eth.getAccounts(function(err, accs) {
-      if (err != null) {
-        console.log("There was an error fetching your accounts.");
-        return;
+    for (let name in web3s) {
+      let network = web3s[name]
+      if ( network === null || network === undefined ) {
+        continue
       }
+      network.eth.getAccounts(function(err, accs) {
+        if (err != null) {
+          console.log("There was an error fetching your accounts.");
+          return;
+        }
 
-      if (accs.length == 0) {
-        console.log("Couldn't get any accounts! Make sure your Ethereum client is configured correctly.");
-        return;
-      }
+        accounts = accs;
+        console.log(name, ":", accounts);
 
-      accounts = accs;
-			console.log(accounts);
+        if (accs.length == 0) {
+          console.log("Couldn't get any accounts! Make sure your Ethereum client is configured correctly.");
+          return;
+        }
 
-      // self.refreshBalance();
-    });
+        // self.refreshBalance();
+      });
+    }
   }
 
   render() {
 
     console.log(this.props)
 
-    let { web3 } = this.props;
-    console.log("Home.render()", web3)
+    let { web3s } = this.props;
 
-    if (web3 !== null && web3 !== undefined) {
-      this.checkWeb3();
-    }
+    this.checkWeb3();
+
     return (
       <Home />
     );

@@ -1,12 +1,16 @@
 const initialState = {
-  web3Instance: null
+  ganache: null,
+  testnet: null,
+  mainnet: null,
 }
 
 const web3Reducer = (state = initialState, action) => {
   if (action.type === 'WEB3_INITIALIZED')
   {
     return Object.assign({}, state, {
-      web3Instance: action.payload.web3Instance
+      ganache: action.payload.ganache,
+      testnet: action.payload.testnet,
+      mainnet: action.payload.mainnet,
     })
   }
 

@@ -31,12 +31,20 @@ let getWeb3 = new Promise(function(resolve, reject) {
 
       // Fallback to localhost if no web3 injection. We've configured this to
       // use the ganache-cli's port by default.
-      var provider = new Web3.providers.HttpProvider('http://127.0.0.1:8545')
+      // var provider = new Web3.providers.HttpProvider('http://127.0.0.1:8545')
 
-      web3 = new Web3(provider)
+      var ganacheP = new Web3.providers.HttpProvider('http://127.0.0.1:8545')
+      var testnetP = new Web3.providers.HttpProvider('http://127.0.0.1:9545')
+      var mainnetP = new Web3.providers.HttpProvider('http://127.0.0.1:10545')
+
+      var ganache = new Web3(ganacheP);
+      var testnet = new Web3(testnetP);
+      var mainnet = new Web3(mainnetP);
 
       results = {
-        web3Instance: web3
+        ganache,
+        testnet,
+        mainnet
       }
 
       console.log('No web3 instance injected, using Local web3.', results);
