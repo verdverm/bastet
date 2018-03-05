@@ -1,5 +1,6 @@
 // @flow
 import * as React from 'react';
+import getWeb3 from '../utils/web3/getWeb3';
 
 type Props = {
   children: React.Node

@@ -62,4 +62,6 @@ const configureStore = (initialState?: counterStateType) => {
   return store;
 };
 
-export default { configureStore, history };
+const store = configureStore();
+
+export default { store, history };
