@@ -13,6 +13,8 @@
 import { app, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
 
+import bastetServer from '../server';
+
 let mainWindow = null;
 
 if (process.env.NODE_ENV === 'production') {
@@ -40,17 +42,59 @@ const installExtensions = async () => {
     .catch(console.log);
 };
 
-
 /**
  * Add event listeners...
  */
 
-app.on('window-all-closed', () => {
+app.on('window-all-closed', async () => {
   // Respect the OSX convention of having the application in memory even
   // after all windows have been closed
+  /*
   if (process.platform !== 'darwin') {
     app.quit();
   }
+  */
+
+  console.log("platform:", process.platform)
+  mainWindow = null;
+  await sleep(2000);
+  let win = createMainWindow();
+
+  await win;
+
+
+  // Do Nothing, but we need to subscribe to prevent the default quit()
+  /*
+  let myNotification = new Notification('Title', {
+      body: 'Lorem Ipsum Dolor Sit Amet'
+  })
+
+  myNotification.onclick = () => {
+    console.log('Notification clicked')
+  }
+
+  myNotification.show();
+  */
+});
+
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+
+/*
+async function demo() {
+    console.log('Taking a break...');
+    await sleep(2000);
+    console.log('Two second later');
+}
+
+demo();
+*/
+
+app.on('will-quit', async () => {
+  console.log("will be quitting...")
+  // The User really wants the application closed, so stop the server
+  await bastetServer.Stop()
 });
 
 
@@ -59,6 +103,13 @@ app.on('ready', async () => {
     await installExtensions();
   }
 
+  let srv = bastetServer.Start();
+  let win = createMainWindow();
+
+  await win;
+});
+
+const createMainWindow = async () => {
   mainWindow = new BrowserWindow({
     show: false,
     width: 1024,
@@ -83,4 +134,4 @@ app.on('ready', async () => {
 
   const menuBuilder = new MenuBuilder(mainWindow);
   menuBuilder.buildMenu();
-});
+}

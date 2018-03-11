@@ -124,7 +124,9 @@ export default class MenuBuilder {
         click: () => {
           this.mainWindow.close();
         }
-      }]
+      },
+      { label: 'Quit', accelerator: 'Ctrl+Q', click: () => { app.quit(); } }
+      ]
     }, {
       label: '&View',
       submenu: (process.env.NODE_ENV === 'development') ? [{
