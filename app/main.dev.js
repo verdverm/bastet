@@ -13,9 +13,9 @@
 import { app, BrowserWindow } from 'electron';
 import MenuBuilder from './menu';
 
-import bastetServer from '../server';
+import createMainWindow from './mainwin';
 
-let mainWindow = null;
+import bastetServer from '../server';
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -56,11 +56,7 @@ app.on('window-all-closed', async () => {
   */
 
   console.log("platform:", process.platform)
-  mainWindow = null;
-  await sleep(2000);
-  let win = createMainWindow();
-
-  await win;
+  // mainWindow = null;
 
 
   // Do Nothing, but we need to subscribe to prevent the default quit()
@@ -106,32 +102,7 @@ app.on('ready', async () => {
   let srv = bastetServer.Start();
   let win = createMainWindow();
 
-  await win;
+  await win
+  // mainWindow = await win;
 });
 
-const createMainWindow = async () => {
-  mainWindow = new BrowserWindow({
-    show: false,
-    width: 1024,
-    height: 728
-  });
-
-  mainWindow.loadURL(`file://${__dirname}/app.html`);
-
-  // @TODO: Use 'ready-to-show' event
-  //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
-  mainWindow.webContents.on('did-finish-load', () => {
-    if (!mainWindow) {
-      throw new Error('"mainWindow" is not defined');
-    }
-    mainWindow.show();
-    mainWindow.focus();
-  });
-
-  mainWindow.on('closed', () => {
-    mainWindow = null;
-  });
-
-  const menuBuilder = new MenuBuilder(mainWindow);
-  menuBuilder.buildMenu();
-}
