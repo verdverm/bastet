@@ -15,7 +15,7 @@ import MenuBuilder from './menu';
 
 import createMainWindow from './mainwin';
 
-import bastetServer from '../server';
+import bastetServer from './server';
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');

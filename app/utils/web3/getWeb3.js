@@ -33,7 +33,7 @@ let getWeb3 = new Promise(function(resolve, reject) {
       // use the ganache-cli's port by default.
       // var provider = new Web3.providers.HttpProvider('http://127.0.0.1:8545')
 
-      var ganacheP = new Web3.providers.HttpProvider('http://127.0.0.1:8545')
+      var ganacheP = new Web3.providers.HttpProvider('http://127.0.0.1:4545')
       var testnetP = new Web3.providers.HttpProvider('http://127.0.0.1:9545')
       var mainnetP = new Web3.providers.HttpProvider('http://127.0.0.1:10545')
 
