@@ -1,8 +1,8 @@
-# Bastet - The Dapp Control Center
+# Bastet - Your Account and DApp Guardian
 
 WIP for https://github.com/aragon/nest/pull/20
 
-
+Some documentation here: https://github.com/verdverm/nest/tree/master/grants/Bastet
 
 ### Setup
 
