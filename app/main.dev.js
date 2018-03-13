@@ -10,12 +10,18 @@
  *
  * @flow
  */
-import { app, BrowserWindow } from 'electron';
-import MenuBuilder from './menu';
+import uuid from 'uuid';
+import util from 'util';
+import { EventEmitter } from 'events';
 
+import { app, session, ipcMain, BrowserWindow } from 'electron';
+
+import ipcSystem from './ipc';
+import bastetServer from './server';
+
+import MenuBuilder from './menu';
 import createMainWindow from './mainwin';
 
-import bastetServer from './server';
 
 if (process.env.NODE_ENV === 'production') {
   const sourceMapSupport = require('source-map-support');
@@ -55,42 +61,17 @@ app.on('window-all-closed', async () => {
   }
   */
 
+  // Let's actually do nothing when all windows are closed
+  // on any platform, there is a server running.
+  // The user needs to explicitly quit the application
   console.log("platform:", process.platform)
-  // mainWindow = null;
-
-
-  // Do Nothing, but we need to subscribe to prevent the default quit()
-  /*
-  let myNotification = new Notification('Title', {
-      body: 'Lorem Ipsum Dolor Sit Amet'
-  })
-
-  myNotification.onclick = () => {
-    console.log('Notification clicked')
-  }
-
-  myNotification.show();
-  */
 });
-
-function sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-}
-
-/*
-async function demo() {
-    console.log('Taking a break...');
-    await sleep(2000);
-    console.log('Two second later');
-}
-
-demo();
-*/
 
 app.on('will-quit', async () => {
   console.log("will be quitting...")
   // The User really wants the application closed, so stop the server
   await bastetServer.Stop()
+  await ipcSystem.Stop();
 });
 
 
@@ -99,10 +80,8 @@ app.on('ready', async () => {
     await installExtensions();
   }
 
-  let srv = bastetServer.Start();
-  let win = createMainWindow();
-
-  await win
-  // mainWindow = await win;
+  await ipcSystem.Start();
+  bastetServer.Start();
+  await createMainWindow();
 });
 
