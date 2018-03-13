@@ -16,11 +16,11 @@ import { EventEmitter } from 'events';
 
 import { app, session, ipcMain, BrowserWindow } from 'electron';
 
-import ipcSystem from './ipc';
+import ipcSystem from './proc/ipc';
 import bastetServer from './server';
 
-import MenuBuilder from './menu';
-import createMainWindow from './mainwin';
+// import createMainWindow from './ui/mainwin';
+import MainProcess from './proc/main';
 
 
 if (process.env.NODE_ENV === 'production') {
@@ -76,12 +76,19 @@ app.on('will-quit', async () => {
 
 
 app.on('ready', async () => {
-  if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
-    await installExtensions();
-  }
+  try {
+    if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
+      await installExtensions();
+    }
 
-  await ipcSystem.Start();
-  bastetServer.Start();
-  await createMainWindow();
+    await ipcSystem.Start();
+    bastetServer.Start();
+
+    new MainProcess();
+    // await createMainWindow();
+
+  } catch(err) {
+    console.log("Caught Error:", err)
+  }
 });
 

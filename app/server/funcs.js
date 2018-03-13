@@ -2,7 +2,7 @@ const EthereumTx = require('ethereumjs-tx')
 const Web3 = require('web3')
 const jayson = require('jayson');
 
-const createMainWindow = require('../mainwin');
+const createMainWindow = require('../ui/mainwin');
 
 // backend (proxied) providers
 var ganacheP = new Web3.providers.HttpProvider('http://127.0.0.1:8545')

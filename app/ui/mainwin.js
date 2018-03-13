@@ -8,19 +8,18 @@ const createMainWindow = async () => {
 	}
 
   mainWindow = new BrowserWindow({
+    title: "Bastet",
     show: false,
-    width: 1024,
-    height: 728
+    backgroundColor: '#2e2c29',
+    width: 600,
+    height: 900,
   });
 
   mainWindow.loadURL(`file://${__dirname}/app.html`);
 
   // @TODO: Use 'ready-to-show' event
   //        https://github.com/electron/electron/blob/master/docs/api/browser-window.md#using-ready-to-show-event
-  mainWindow.webContents.on('did-finish-load', () => {
-    if (!mainWindow) {
-      throw new Error('"mainWindow" is not defined');
-    }
+  mainWindow.webContents.on('ready-to-show', () => {
     mainWindow.show();
     mainWindow.focus();
   });

@@ -5,6 +5,8 @@ import Root from './ui/containers/Root';
 import { store, history } from './ui/store/configureStore';
 import './app.global.css';
 
+import ProcessConnect from './proc/ProcessConnector';
+
 render(
   <AppContainer>
     <Root store={store} history={history} />
