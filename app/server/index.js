@@ -1,65 +1,55 @@
-const createMainWindow = require('../mainwin');
-const Web3 = require('web3')
 const jayson = require('jayson');
+const cors = require('cors');
+const connect = require('connect');
+const jsonParser = require('body-parser').json;
 
-// backend (proxied) providers
-var ganacheP = new Web3.providers.HttpProvider('http://127.0.0.1:8545')
-var ganache = new Web3(ganacheP);
-/*
-var testnetP = new Web3.providers.HttpProvider('http://127.0.0.1:9545')
-var testnet = new Web3(testnetP);
-var mainnetP = new Web3.providers.HttpProvider('http://127.0.0.1:10545')
-var mainnet = new Web3(mainnetP);
-*/
+const rpcFuncs = require('./funcs');
 
 // create a server
-var server = jayson.server({
-  reopen: function(args, callback) {
-    // callback(null, args[0] + args[1]);
-    console.log("reopen", args)
-    createMainWindow().then(()=> {
-      callback(null, "done")
-    })
-  },
-  echo: function(msg, callback) {
-    if(msg != null)
-      callback(null, msg);
-  },
-  add: function(a, b, callback) {
-    if( (a!= null) && (b!= null) )
-      callback(null, a + b);
-  },
-  eth_accounts: async function(args, callback) {
-    var accounts = null;
+var server = jayson.server(rpcFuncs,{
+  router: function(method, params) {
 
-    return ganache.eth.getAccounts(function(err, accs) {
-      if (err != null) {
-        console.log("There was an error fetching your accounts.");
-        callback(err, err)
-        return
-      }
+		console.log("Jayson - router: ", method, params)
 
-      accounts = accs;
+    // regular by-name routing first
+    if(this._methods[method] !== undefined) return this._methods[method];
 
-      if (accs.length == 0) {
-        console.log("Couldn't get any accounts! Make sure your Ethereum client is configured correctly.");
-        callback(null, [])
-        return;
-      }
+    console.log(this._methods)
+    console.log(typeof(this._methods[method]))
+    console.log(this._methods[method])
 
-      console.log("eth_accounts:", accounts);
-      callback(null, accounts);
-    });
+    // DEV TODO temp proxy for undefinded methods
+		return jayson.client.http({
+			port: 8545
+		})
 
+		// var fn = server.getMethod('add').getHandler();
+		return new jayson.Method(function(args, done) {
+			args.unshift(2);
+			fn(args, done);
+		});
   }
 });
 
 
+// create wrapper app
+var app = connect();
+
+app.use(cors({
+  origin: '*',
+  methods: ['GET','HEAD','PUT','PATCH', 'POST', 'DELETE', 'OPTIONS'],
+  preflightContinue: false,
+  optionsSuccessStatus: 204
+}));
+app.use(jsonParser());
+app.use(server.middleware());
+
+// Export some basic functions
 export default {
   Start: async () => {
     console.log("Starting Server")
 		// engine.start();
-		return server.http().listen(4545);
+		return app.listen(4545);
   },
   Stop: () => {
     console.log("Stopping Server")
