@@ -2,7 +2,18 @@
 
 WIP for https://github.com/aragon/nest/pull/20
 
-Some documentation here: https://github.com/verdverm/nest/tree/master/grants/Bastet
+Descriptions and early documentation here: https://github.com/verdverm/nest/tree/master/grants/Bastet
+
+### Current Status
+
+- Proxies DApps, interleaves a signing process
+- Uses Secure IPC and multiple processes
+- Interacts with running Blockchains
+- Signs transactions with private key
+- Sends signed transaction to the chain
+- Demo DApp that works with Bastet
+
+Demo DApp flow works as with other providers.
 
 ### Setup
 
@@ -37,4 +48,5 @@ is signed with the accoutn private key
 and then sent to the network.
 
 More to come!
+
 
