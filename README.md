@@ -13,8 +13,6 @@ Descriptions and early documentation here: https://github.com/verdverm/nest/tree
 - Sends signed transaction to the chain
 - Demo DApp that works with Bastet
 
-Demo DApp flow works as with other providers.
-
 ### Setup
 
 Make sure you have ganache-cli installed.
@@ -49,4 +47,7 @@ and then sent to the network.
 
 More to come!
 
+---
+
+The name __Bastet__ comes from an Egyptian diety for protection. ([Bastet - Wikipedia](https://en.wikipedia.org/wiki/Bastet))
 
