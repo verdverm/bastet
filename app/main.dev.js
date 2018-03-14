@@ -19,7 +19,6 @@ import { app, session, ipcMain, BrowserWindow } from 'electron';
 import ipcSystem from './proc/ipc';
 import bastetServer from './server';
 
-// import createMainWindow from './ui/mainwin';
 import MainProcess from './proc/main';
 
 

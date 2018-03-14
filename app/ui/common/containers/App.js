@@ -1,6 +1,9 @@
 // @flow
 import React from 'react';
-import getWeb3 from '../../utils/web3/getWeb3';
+
+import NavBar from '../components/NavBar';
+
+import getWeb3 from '../../../utils/web3/getWeb3';
 
 type Props = {
   children: React.Node
@@ -12,6 +15,7 @@ export default class App extends React.Component<Props> {
   render() {
     return (
       <div>
+        <NavBar />
         {this.props.children}
       </div>
     );

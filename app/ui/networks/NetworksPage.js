@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Home from '../components/Home';
+import Networks from './Networks';
 
 type Props = {};
 
@@ -19,7 +19,7 @@ function mapDispatchToProps(dispatch) {
 
 var accounts;
 
-class HomePage extends Component<Props> {
+class NetworksPage extends Component<Props> {
   props: Props;
 
   checkWeb3() {
@@ -57,12 +57,17 @@ class HomePage extends Component<Props> {
 
     let { web3s } = this.props;
 
-    this.checkWeb3();
+    var networks = [];
+    for (let name in web3s) {
+      if (web3s[name] !== null && web3s[name] !== undefined) {
+        networks.push(name);
+      }
+    }
 
     return (
-      <Home />
+      <Networks networks={networks} />
     );
   }
 }
 
-export default connect(mapStateToProps, null)(HomePage);
+export default connect(mapStateToProps, null)(NetworksPage);

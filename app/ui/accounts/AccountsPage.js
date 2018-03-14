@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Home from '../components/Dapps';
+import Accounts from './Accounts';
 
 type Props = {};
 
@@ -17,16 +17,13 @@ function mapDispatchToProps(dispatch) {
   return bindActionCreators(() => {}, dispatch);
 }
 
-var accounts;
-
-class HomePage extends Component<Props> {
+class AccountsPage extends Component<Props> {
   props: Props;
 
-  checkWeb3() {
+  getAccounts() {
     let { web3s } = this.props;
 
-    console.log("Checking Web3", web3s)
-		// Get the initial account balance so it can be displayed.
+    let accounts = [];
     for (let name in web3s) {
       let network = web3s[name]
       if ( network === null || network === undefined ) {
@@ -38,17 +35,18 @@ class HomePage extends Component<Props> {
           return;
         }
 
-        accounts = accs;
-        console.log(name, ":", accounts);
-
         if (accs.length == 0) {
           console.log("Couldn't get any accounts! Make sure your Ethereum client is configured correctly.");
           return;
         }
 
+        accounts = accounts.concat(accs)
+        console.log("ACCTS:", accounts)
         // self.refreshBalance();
       });
     }
+
+    return accounts
   }
 
   render() {
@@ -57,12 +55,12 @@ class HomePage extends Component<Props> {
 
     let { web3s } = this.props;
 
-    this.checkWeb3();
+    let accounts = this.getAccounts();
 
     return (
-      <Home />
+      <Accounts accounts={accounts}/>
     );
   }
 }
 
-export default connect(mapStateToProps, null)(HomePage);
+export default connect(mapStateToProps, null)(AccountsPage);

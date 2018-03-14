@@ -11,7 +11,13 @@ Descriptions and early documentation here: https://github.com/verdverm/nest/tree
 - Interacts with running Blockchains
 - Signs transactions with private key
 - Sends signed transaction to the chain
-- Demo DApp that works with Bastet
+
+UI/UX in the Bastet-UI right now:
+- enough to demonstrate the User notification to approve signing a transaction
+- account list
+- network list
+
+Demo DApp which works with Bastet as with other providers.
 
 ### Setup
 

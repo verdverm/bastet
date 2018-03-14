@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
-import Home from '../components/Networks';
+import Home from './Home';
 
 type Props = {};
 

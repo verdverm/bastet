@@ -190,6 +190,7 @@
   },
   "dependencies": {
     "body-parser": "^1.18.2",
+    "bootstrap": "^4.0.0-beta.3",
     "connect": "^3.6.6",
     "cors": "^2.8.4",
     "devtron": "^1.4.0",
@@ -198,6 +199,8 @@
     "font-awesome": "^4.7.0",
     "history": "^4.7.2",
     "jayson": "^2.0.5",
+    "jquery": "^3.3.1",
+    "popper.js": "^1.14.1",
     "react": "^16.2.0",
     "react-dom": "^16.2.0",
     "react-hot-loader": "^4.0.0-beta.13",
@@ -205,6 +208,7 @@
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
     "react-router-redux": "^5.0.0-alpha.6",
+    "reactstrap": "^5.0.0-beta.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
     "source-map-support": "^0.5.3"

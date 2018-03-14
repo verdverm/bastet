@@ -2,8 +2,6 @@ const EthereumTx = require('ethereumjs-tx')
 const Web3 = require('web3')
 const jayson = require('jayson');
 
-const createMainWindow = require('../ui/mainwin');
-
 // backend (proxied) providers
 var ganacheP = new Web3.providers.HttpProvider('http://127.0.0.1:8545')
 var ganache = new Web3(ganacheP);
@@ -22,20 +20,6 @@ const version = "Bastet:v0.0.1";
 var network = ganache;
 
 export default {
-  reopen: function(args, callback) {
-    console.log("reopen", args)
-    createMainWindow().then(()=> {
-      callback(null, "done")
-    })
-  },
-  echo: function(msg, callback) {
-    if(msg != null)
-      callback(null, msg);
-  },
-  add: function(a, b, callback) {
-    if( (a!= null) && (b!= null) )
-      callback(null, a + b);
-  },
   net_version: (args, callback) => {
     callback(null, version);
   },

@@ -18,7 +18,6 @@ ipcBroker.start()
     .catch((err) => {
         console.log('IPC Broker instance : ' + err);
     });
-    
 
 function dispatchMessage(msg)
 {
