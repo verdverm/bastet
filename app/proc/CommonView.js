@@ -1,36 +1,36 @@
-'use strict';
+import ProcessConnector from './ProcessConnector';
 
 var processId;
 var peerName;
 var processToMaster = null;
 
-function doNewNodeProcess(event) {
+export function doNewNodeProcess(event) {
     processToMaster.send('new-process', 'node');
 }
 
-function doNewRendererProcess(event) {
+export function doNewRendererProcess(event) {
     processToMaster.send('new-process', 'renderer');
 }
 
-function doNewRendererInstance(event) {
+export function doNewRendererInstance(event) {
     processToMaster.send('new-renderer', processId);
 }
 
-function doOpenPerfView(event) {
+export function doOpenPerfView(event) {
     processToMaster.send('new-perf');
 }
 
-function doQueryBrokerState() {
+export function doQueryBrokerState() {
 //    processToMaster.send('queryState');
     ipcBus.request(2000, ipcBus_QUERYSTATE_CHANNEL)
         .then((ipcBusRequestResponse) => onIPC_BrokerStatusTopic(ipcBusRequestResponse.payload));
 }
 
-function getProcessElt() {
+export function getProcessElt() {
     return document.getElementById('ProcessMonitor');
 }
 
-function getTopicName(elt) {
+export function getTopicName(elt) {
     if (elt == null) {
         return '';
     }
@@ -41,7 +41,7 @@ function getTopicName(elt) {
     return getTopicName(elt.parentElement);
 }
 
-function doSubscribeToTopic(event) {
+export function doSubscribeToTopic(event) {
     console.log('doSubscribeToTopic:' + event);
 
     var target = event.target;
@@ -61,7 +61,7 @@ function doSubscribeToTopic(event) {
     }
 }
 
-function onIPCElectron_SubscribeNotify(topicName) {
+export function onIPCElectron_SubscribeNotify(topicName) {
     console.log('onIPCElectron_SubscribeNotify:' + topicName);
 
     var topicItemTemplate = document.getElementById('SubscriptionItem-template');
@@ -86,7 +86,7 @@ function onIPCElectron_SubscribeNotify(topicName) {
     console.log('topicName : ' + topicName + ' - subscribe');
 }
 
-function doUnsubscribeFromTopic(event) {
+export function doUnsubscribeFromTopic(event) {
     console.log('doUnsubscribeFromTopic:' + event);
 
     var target = event.target;
@@ -104,7 +104,7 @@ function doUnsubscribeFromTopic(event) {
     }
 }
 
-function onIPCElectron_UnsubscribeNotify(topicName) {
+export function onIPCElectron_UnsubscribeNotify(topicName) {
     console.log('doUnsubscribeFromTopic:' + topicName);
 
     var SubscriptionsListElt = document.getElementById('ProcessSubscriptions');
@@ -114,7 +114,7 @@ function onIPCElectron_UnsubscribeNotify(topicName) {
     console.log('topicName : ' + topicName + ' - unsubscribe');
 }
 
-function doRequestMessageToTopic(event) {
+export function doRequestMessageToTopic(event) {
     console.log('doRequestMessageToTopic:' + event);
 
     var target = event.target;
@@ -143,7 +143,7 @@ function doRequestMessageToTopic(event) {
     }
 }
 
-function onIPCBus_OnRequestThen(requestPromiseResponse) {
+export function onIPCBus_OnRequestThen(requestPromiseResponse) {
     console.log('onIPCBus_OnRequestThen : requestPromiseArgs:' + requestPromiseResponse);
     var topicRespElt = document.querySelector('.topicRequestResponse');
     if (topicRespElt != null) {
@@ -152,7 +152,7 @@ function onIPCBus_OnRequestThen(requestPromiseResponse) {
     }
 }
 
-function onIPCBus_OnRequestCatch(requestPromiseResponse) {
+export function onIPCBus_OnRequestCatch(requestPromiseResponse) {
     console.log('onIPCBus_OnRequestCatch : err:' + requestPromiseResponse.payload);
     var topicRespElt = document.querySelector('.topicRequestResponse');
     if (topicRespElt != null) {
@@ -161,7 +161,7 @@ function onIPCBus_OnRequestCatch(requestPromiseResponse) {
     }
 }
 
-function doSendMessageToTopic(event) {
+export function doSendMessageToTopic(event) {
     console.log('doSendMessageToTopic:' + event);
 
     var target = event.target;
@@ -181,14 +181,14 @@ function doSendMessageToTopic(event) {
     }
 }
 
-function doClearTopic(event) {
+export function doClearTopic(event) {
     var target = event.target;
     var topicItemElt = target.parentElement;
     var topicReceivedElt = topicItemElt.querySelector('.topicReceived');
     topicReceivedElt.value = '';
 }
 
-function onIPC_Received(ipcBusEvent, ipcContent) {
+export function onIPC_Received(ipcBusEvent, ipcContent) {
     console.log('onIPCBus_received : msgTopic:' + ipcBusEvent.channel + ' from #' + ipcBusEvent.sender.name)
 
     var SubscriptionsListElt = document.getElementById('ProcessSubscriptions');
@@ -204,7 +204,7 @@ function onIPC_Received(ipcBusEvent, ipcContent) {
     }
 }
 
-function onIPC_EmitReceived(ipcBusEvent, ipcContent1, ipcContent2, ipcContent3) {
+export function onIPC_EmitReceived(ipcBusEvent, ipcContent1, ipcContent2, ipcContent3) {
     console.log('onIPC_EmitReceived : msgTopic:' + ipcBusEvent.channel + ' from #' + ipcBusEvent.sender.name)
 
     var SubscriptionsListElt = document.getElementById('ProcessSubscriptions');
@@ -221,11 +221,11 @@ function onIPC_EmitReceived(ipcBusEvent, ipcContent1, ipcContent2, ipcContent3) 
 }
 
 
-function onIPCBus_ReceivedSendNotify(ipcBusEvent, ipcContent) {
+export function onIPCBus_ReceivedSendNotify(ipcBusEvent, ipcContent) {
     onIPC_Received(ipcBusEvent, ipcContent);
 }
 
-function onIPC_BrokerStatusTopic(ipcContent) {
+export function onIPC_BrokerStatusTopic(ipcContent) {
     console.log('queryBrokerState - msgContent:' + ipcContent)
 
     var statesListElt = document.getElementById('brokerStatesList');
@@ -256,7 +256,7 @@ ipcRenderer.on('initializeWindow', function (event, data) {
     console.log('initializeWindow' + args);
 
     processId = args['id'];
-    peerName  = args['peerName']; 
+    peerName  = args['peerName'];
 
     var processMonitorElt = document.getElementById('ProcessMonitor');
     processMonitorElt.setAttribute('topic-process', args['type']);

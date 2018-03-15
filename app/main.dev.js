@@ -10,16 +10,14 @@
  *
  * @flow
  */
-import uuid from 'uuid';
-import util from 'util';
-import { EventEmitter } from 'events';
-
 import { app, session, ipcMain, BrowserWindow } from 'electron';
 
 import ipcSystem from './proc/ipc';
-import bastetServer from './server';
 
-import MainProcess from './proc/main';
+import bastetServer from './server';
+import MainProcess from './ui/proc';
+
+
 
 
 if (process.env.NODE_ENV === 'production') {
@@ -73,21 +71,25 @@ app.on('will-quit', async () => {
   await ipcSystem.Stop();
 });
 
-
-app.on('ready', async () => {
+async function setup() {
   try {
     if (process.env.NODE_ENV === 'development' || process.env.DEBUG_PROD === 'true') {
       await installExtensions();
     }
 
-    await ipcSystem.Start();
+    await ipcSystem.Start(true);
     bastetServer.Start();
 
+    console.log("Got Here")
     new MainProcess();
     // await createMainWindow();
 
   } catch(err) {
     console.log("Caught Error:", err)
   }
+}
+
+app.on('ready', () => {
+  return setup()
 });
 

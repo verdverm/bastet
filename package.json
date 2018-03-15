@@ -159,7 +159,7 @@
     "eslint-plugin-jsx-a11y": "6.0.3",
     "eslint-plugin-promise": "^3.6.0",
     "eslint-plugin-react": "^7.6.1",
-    "express": "^4.16.2",
+    "express": "^4.16.3",
     "extract-text-webpack-plugin": "^3.0.2",
     "fbjs-scripts": "^0.8.1",
     "file-loader": "^1.1.6",
@@ -191,11 +191,12 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "bootstrap": "^4.0.0-beta.3",
-    "connect": "^3.6.6",
+    "bufferutil": "^3.0.3",
     "cors": "^2.8.4",
     "devtron": "^1.4.0",
     "electron-debug": "^1.5.0",
     "electron-ipc-bus": "^0.17.4",
+    "express-ws": "^3.0.0",
     "font-awesome": "^4.7.0",
     "history": "^4.7.2",
     "jayson": "^2.0.5",
@@ -211,7 +212,8 @@
     "reactstrap": "^5.0.0-beta.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "source-map-support": "^0.5.3"
+    "source-map-support": "^0.5.3",
+    "utf-8-validate": "^4.0.0"
   },
   "devEngines": {
     "node": ">=7.x",

@@ -5,7 +5,7 @@ import { createBrowserHistory } from 'history';
 import { routerMiddleware } from 'react-router-redux';
 import rootReducer from '../reducers';
 
-import * as counterActions from '../../counter/actions';
+import * as homeActions from '../../home/actions';
 
 const history = createBrowserHistory();
 const router = routerMiddleware(history);

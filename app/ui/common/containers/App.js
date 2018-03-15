@@ -3,7 +3,9 @@ import React from 'react';
 
 import NavBar from '../components/NavBar';
 
-import getWeb3 from '../../../utils/web3/getWeb3';
+import { initIpc } from '../../ipc';
+
+initIpc();
 
 type Props = {
   children: React.Node

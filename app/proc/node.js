@@ -69,6 +69,7 @@ var NodeProcess = (function () {
 
         function onIPCProcess_Message(data) {
             var msgJSON = JSON.parse(data);
+          console.log("node proc - on message", msgJSON)
             if (msgJSON.hasOwnProperty('action')) {
                 switch (msgJSON['action']) {
                     case 'receivedRequestThen':
