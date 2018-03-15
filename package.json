@@ -191,7 +191,6 @@
   "dependencies": {
     "body-parser": "^1.18.2",
     "bootstrap": "^4.0.0-beta.3",
-    "bufferutil": "^3.0.3",
     "cors": "^2.8.4",
     "devtron": "^1.4.0",
     "electron-debug": "^1.5.0",
@@ -212,8 +211,7 @@
     "reactstrap": "^5.0.0-beta.2",
     "redux": "^3.7.2",
     "redux-thunk": "^2.2.0",
-    "source-map-support": "^0.5.3",
-    "utf-8-validate": "^4.0.0"
+    "source-map-support": "^0.5.3"
   },
   "devEngines": {
     "node": ">=7.x",
