@@ -4,26 +4,24 @@ WIP for https://github.com/aragon/nest/pull/20
 
 Descriptions and early documentation here: https://github.com/verdverm/nest/tree/master/grants/Bastet
 
-### Current Status
+### Proof-of-concept Status
 
-- Proxies DApps, interleaves a signing process
-- Uses Secure IPC and multiple processes
-- Interacts with running Blockchains
-- Signs transactions with private key
-- Sends signed transaction to the chain
-
-UI/UX in the Bastet-UI right now:
-- enough to demonstrate the User notification to approve signing a transaction
-- account list
-- network list
-
-Demo DApp which works with Bastet as with other providers.
+- Transaction signing UX
+    - Interecpts Dapp request in proxy
+    - Presents TX details to user for approval / denial
+    - Signs transaction with private key and sends to the chain for execution
+    - Sends user's response to Dapp
+- Dapp proxy to prevent direct communication with the chains
+- Separate Node processes for isolation of sensative data handling
+- Secure IPC, because Electron IPC is not
+- Works on all required Operating Systems
+- _Should_ work with all Dapps against `ganache-cli -i 22323 --seed 22323 -d`
 
 ### Setup
 
 Make sure you have ganache-cli installed.
 
-Run `ganache-cli -i 22323`
+Run `ganache-cli -i 22323 --seed 22323 -d`
 
 ```bash
 # Get Bastet and the demo dapp
