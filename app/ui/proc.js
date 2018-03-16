@@ -37,12 +37,12 @@ var MainProcess = (function () {
         center: true,
         width: 900,
         height: 900,
-//         show: false,
         backgroundColor: '#2e2c29',
         // autoHideMenuBar: true,
         webPreferences:
         {
-          preload: preloadFile
+          preload: preloadFile,
+          // webSecurity: false
         }
       });
 
@@ -64,7 +64,13 @@ var MainProcess = (function () {
       });
 
       mainWindow.loadURL(`file://${__dirname}/../app.html`);
-      // mainWindow.loadURL(commonViewUrl);
+      /*
+      if (process.env.NODE_ENV === 'development') {
+        mainWindow.loadURL(`file://${__dirname}/../app.html`);
+      } else {
+        mainWindow.loadURL(`file:///app.html`);
+      }
+      */
 
       const menuBuilder = new MenuBuilder(mainWindow);
       menuBuilder.buildMenu();
@@ -73,6 +79,7 @@ var MainProcess = (function () {
 
       var processMainToView = new ProcessConnector('browser', mainWindow.webContents);
       mainWindow.webContents.on('dom-ready', function () {
+        console.log("DOM READY")
         mainWindow.webContents.send('initializeWindow', { title: 'Main', type: 'browser', id: 0, peerName: peerName, webContentsId: mainWindow.webContents.id });
       });
 
