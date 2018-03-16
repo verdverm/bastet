@@ -78,11 +78,11 @@ async function setup() {
     }
 
     await ipcSystem.Start(true);
+    // await ipcSystem.Start(false);
     bastetServer.Start();
 
     console.log("Got Here")
     new MainProcess();
-    // await createMainWindow();
 
   } catch(err) {
     console.log("Caught Error:", err)

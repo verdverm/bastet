@@ -30,7 +30,7 @@ var server = jayson.server(rpcFuncs,{
 
 // create wrapper app
 var app = express();
-var expressWs = require('express-ws')(app);
+// var expressWs = require('express-ws')(app);
 
 app.use(cors({
   origin: '*',
@@ -41,6 +41,7 @@ app.use(cors({
 app.use(jsonParser());
 app.use(server.middleware());
 
+/*
 app.ws('/', function(ws, req) {
   console.log("WebSocket!!", req)
   ws.on('message', function(msg) {
@@ -48,6 +49,7 @@ app.ws('/', function(ws, req) {
   });
   console.log('socket', req.testing);
 });
+*/
 
 
 export default app;
