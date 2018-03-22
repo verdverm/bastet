@@ -4,7 +4,7 @@
 const ipcBusModule = require("electron-ipc-bus");
 
 import { spawnNodeInstance } from './spawn';
-import { ipcBusPath } from './config';
+import { ipcBusPath } from '../config';
 
 // Debug
 ipcBusModule.ActivateIpcBusTrace(true);

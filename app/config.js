@@ -4,7 +4,7 @@ import path from 'path';
 const ipcBusPath = '/bastet';
 
 // Window const
-const preloadFile = path.join(__dirname, 'BundledBrowserWindowPreload.js');
+const preloadFile = path.join(__dirname, 'preload-ui.bundled.js');
 
 export default {
   ipcBusPath,

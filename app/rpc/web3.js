@@ -11,7 +11,7 @@ function sleep(ms) {
 
 
 // backend (proxied) providers
-var ganacheP = new Web3.providers.HttpProvider('http://127.0.0.1:8545')
+var ganacheP = new Web3.providers.HttpProvider('http://192.168.1.135:8545')
 var ganache = new Web3(ganacheP);
 
 const keys = require('./keys')

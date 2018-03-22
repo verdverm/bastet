@@ -1,8 +1,6 @@
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Electron Test App
 
-'use strict';
-
 console.log("preload")
 
 window.ipcBus = require('electron-ipc-bus').CreateIpcBusClient();
@@ -11,4 +9,16 @@ require('electron-ipc-bus').ActivateIpcBusTrace(true);
 
 window.ipcRenderer = require('electron').ipcRenderer;
 
-console.log("preload!!")
+var content = require('../app.html');
+
+console.log("preload!!", content)
+console.log("window", window)
+
+/*
+window.onload = () => {
+  document.open("text/html", "replace");
+  document.write(content);  // htmlCode is the variable you called newDocument
+  document.close();
+}
+*/
+

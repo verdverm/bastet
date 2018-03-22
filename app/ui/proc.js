@@ -1,7 +1,7 @@
 import { ipcMain, BrowserWindow } from 'electron';
 
 import ProcessConnector from '../proc/ProcessConnector';
-import { preloadFile } from '../proc/config';
+import { preloadFile } from '../config';
 
 import MenuBuilder from './menu';
 
@@ -37,21 +37,15 @@ var MainProcess = (function () {
         center: true,
         width: 900,
         height: 900,
+        show: true,
         backgroundColor: '#2e2c29',
         // autoHideMenuBar: true,
         webPreferences:
         {
           preload: preloadFile,
-          // webSecurity: false
+          webSecurity: false
         }
       });
-
-      /*
-      mainWindow.webContents.on('ready-to-show', () => {
-        mainWindow.show();
-        mainWindow.focus();
-      });
-      */
 
       mainWindow.on('close', function () {
           let keysTmp = [];
@@ -63,25 +57,20 @@ var MainProcess = (function () {
           }
       });
 
-      mainWindow.loadURL(`file://${__dirname}/../app.html`);
-      /*
-      if (process.env.NODE_ENV === 'development') {
-        mainWindow.loadURL(`file://${__dirname}/../app.html`);
-      } else {
-        mainWindow.loadURL(`file:///app.html`);
-      }
-      */
+      mainWindow.loadURL(`file://${__dirname}/app.html`);
+      // mainWindow.loadURL(`file://${__dirname}/../blank.html`);
 
       const menuBuilder = new MenuBuilder(mainWindow);
       menuBuilder.buildMenu();
 
-      console.log('<MAIN> Main window ready');
+      mainWindow.webContents.on('dom-ready', function () {
+        console.log("DOM READY", mainWindow.webContents.getURL())
+        // mainWindow.webContents.send('initializeWindow', { title: 'Main', type: 'browser', id: 0, peerName: peerName, webContentsId: mainWindow.webContents.id });
+      });
 
       var processMainToView = new ProcessConnector('browser', mainWindow.webContents);
-      mainWindow.webContents.on('dom-ready', function () {
-        console.log("DOM READY")
-        mainWindow.webContents.send('initializeWindow', { title: 'Main', type: 'browser', id: 0, peerName: peerName, webContentsId: mainWindow.webContents.id });
-      });
+
+      console.log('<MAIN> Main window ready');
 
       function doNewProcess(processType) {
           var newProcess = null;

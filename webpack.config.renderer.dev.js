@@ -70,6 +70,15 @@ export default merge.smart(baseConfig, {
         }
       },
       {
+        test: /\.(html)$/,
+        use: {
+          loader: 'html-loader',
+          options: {
+            attrs: false
+          }
+        }
+      },
+      {
         test: /\.global\.css$/,
         use: [
           {
