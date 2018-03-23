@@ -1,6 +1,5 @@
-const EthereumTx = require('ethereumjs-tx')
-const Web3 = require('web3')
-const jayson = require('jayson');
+import EthereumTx from 'ethereumjs-tx';
+import Web3 from 'web3';
 
 import { getIpcClient } from '../proc/ipc';
 import { sendRequest } from '../ui/ipc/send.js';
@@ -122,7 +121,6 @@ export default {
       });
 
 
-      console.log("WHAAAT", ipcBusClient)
       do {
         console.log("waiting for signing", waiting)
         await sleep(1000)

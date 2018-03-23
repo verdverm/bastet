@@ -3,7 +3,7 @@ const cors = require('cors');
 const jsonParser = require('body-parser').json;
 
 const express = require('express');
-const rpcFuncs = require('../rpc');
+const rpcFuncs = require('../rpc/web3');
 
 console.log("RPC Funcs:", rpcFuncs)
 

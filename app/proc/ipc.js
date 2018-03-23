@@ -6,6 +6,8 @@ const ipcBusModule = require("electron-ipc-bus");
 import { spawnNodeInstance } from './spawn';
 import { ipcBusPath } from '../config';
 
+import { addListeners, removeListeners } from '../server/ipc';
+
 // Debug
 ipcBusModule.ActivateIpcBusTrace(true);
 // ipcBusModule.ActivateServiceTrace(true);
@@ -23,17 +25,11 @@ const initIpcBusClient = async () => {
   ipcBusClient = ipcBusModule.CreateIpcBusClient(ipcBusPath);
   let ret = await ipcBusClient.connect();
 
-  // console.log("setting up mainProc IpcBusClient:", ret, ipcBusClient)
+  addListeners(ipcBusClient)
 
   // Channel for Bastet UI ux events and management (electron part of Bastet UI)
   ipcBusClient.addListener('ui', (ipcBusEvent, payload) => {
     console.log("IPC-UI: ", ipcBusEvent, payload)
-
-  });
-
-  // Channel for Bastet UI application specifics and intentions (admin part of Bastet UI)
-  ipcBusClient.addListener('app', (ipcBusEvent, payload) => {
-    console.log("IPC-APP: ", ipcBusEvent, payload)
 
   });
 

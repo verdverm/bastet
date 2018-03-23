@@ -57,15 +57,18 @@ var MainProcess = (function () {
           }
       });
 
-      mainWindow.loadURL(`file://${__dirname}/app.html`);
-      // mainWindow.loadURL(`file://${__dirname}/../blank.html`);
+      if (process.env.NODE_ENV === 'production') {
+        mainWindow.loadURL(`file://${__dirname}/app.html`);
+      } else {
+        mainWindow.loadURL(`file://${__dirname}/../app.html`);
+      }
 
       const menuBuilder = new MenuBuilder(mainWindow);
       menuBuilder.buildMenu();
 
       mainWindow.webContents.on('dom-ready', function () {
         console.log("DOM READY", mainWindow.webContents.getURL())
-        // mainWindow.webContents.send('initializeWindow', { title: 'Main', type: 'browser', id: 0, peerName: peerName, webContentsId: mainWindow.webContents.id });
+        mainWindow.webContents.send('initializeWindow', { title: 'Main', type: 'browser', id: 0, peerName: peerName, webContentsId: mainWindow.webContents.id });
       });
 
       var processMainToView = new ProcessConnector('browser', mainWindow.webContents);

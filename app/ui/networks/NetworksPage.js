@@ -4,70 +4,58 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Networks from './Networks';
+import * as Actions from './actions';
 
 type Props = {};
 
 function mapStateToProps(state) {
   return {
-    web3s: state.web3Reducer
+    networks: state.networks.networks,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(() => {}, dispatch);
+  return bindActionCreators(Actions, dispatch);
 }
-
-var accounts;
 
 class NetworksPage extends Component<Props> {
   props: Props;
 
-  checkWeb3() {
-    let { web3s } = this.props;
+  handleConnect = (id) => {
+    console.log("connecting: " + id)
+    this.props.connectNetwork(window.ipcBus, id);
+  }
 
-    console.log("Checking Web3", web3s)
-		// Get the initial account balance so it can be displayed.
-    for (let name in web3s) {
-      let network = web3s[name]
-      if ( network === null || network === undefined ) {
-        continue
-      }
-      network.eth.getAccounts(function(err, accs) {
-        if (err != null) {
-          console.log("There was an error fetching your accounts.");
-          return;
-        }
+  handleDisconnect = (id) => {
+    console.log("disconnecting: " + id)
+    this.props.disconnectNetwork(window.ipcBus, id);
+  }
 
-        accounts = accs;
-        console.log(name, ":", accounts);
+  componentWillMount() {
+    console.log(this.props)
+    this.props.listenNetworks(window.ipcBus);
+    this.props.getNetworks(window.ipcBus);
+  }
 
-        if (accs.length == 0) {
-          console.log("Couldn't get any accounts! Make sure your Ethereum client is configured correctly.");
-          return;
-        }
-
-        // self.refreshBalance();
-      });
-    }
+  componentWillUnmount() {
+    console.log(this.props)
+    this.props.unlistenNetworks(window.ipcBus);
   }
 
   render() {
 
     console.log(this.props)
 
-    let { web3s } = this.props;
-
-    var networks = [];
-    for (let name in web3s) {
-      if (web3s[name] !== null && web3s[name] !== undefined) {
-        networks.push(name);
-      }
-    }
+    let { networks } = this.props;
 
     return (
-      <Networks networks={networks} />
+      <Networks
+        networks={networks}
+        handleConnect={this.handleConnect}
+        handleDisconnect={this.handleDisconnect}
+      />
     );
   }
 }
 
-export default connect(mapStateToProps, null)(NetworksPage);
+export default connect(mapStateToProps, mapDispatchToProps)(NetworksPage);
