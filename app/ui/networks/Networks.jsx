@@ -48,8 +48,6 @@ export default class Networks extends Component<Props> {
 
     let { networks } = this.props;
 
-    console.log("Networks:", this, this.props)
-
     return (
       <Container>
         <Row>

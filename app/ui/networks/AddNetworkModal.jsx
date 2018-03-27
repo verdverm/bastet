@@ -39,7 +39,6 @@ class AddModal extends React.Component {
 
   render() {
     let showModal = this.state.modal ? true : false;
-    console.log("AddModal.render", this.props)
 
     return (
       <span>

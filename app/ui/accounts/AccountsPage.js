@@ -4,63 +4,47 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Accounts from './Accounts';
+import * as Actions from './actions';
 
 type Props = {};
 
 function mapStateToProps(state) {
   return {
-    web3s: state.web3Reducer
+    networks: state.networks.networks,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(() => {}, dispatch);
+  return bindActionCreators(Actions, dispatch);
 }
 
 class AccountsPage extends Component<Props> {
   props: Props;
 
-  getAccounts() {
-    let { web3s } = this.props;
-
-    let accounts = [];
-    for (let name in web3s) {
-      let network = web3s[name]
-      if ( network === null || network === undefined ) {
-        continue
-      }
-      network.eth.getAccounts(function(err, accs) {
-        if (err != null) {
-          console.log("There was an error fetching your accounts.");
-          return;
-        }
-
-        if (accs.length == 0) {
-          console.log("Couldn't get any accounts! Make sure your Ethereum client is configured correctly.");
-          return;
-        }
-
-        accounts = accounts.concat(accs)
-        console.log("ACCTS:", accounts)
-        // self.refreshBalance();
-      });
-    }
-
-    return accounts
+  componentWillMount() {
+    this.props.getNetworks(window.ipcBus);
   }
 
   render() {
 
-    console.log(this.props)
+    let networkId = this.props.match.params.network;
+    let network = {
+      id: networkId
+    }
+    let networks = this.props.networks;
+    if (networkId && networks) {
+      let net = networks[networkId];
+      if (net) {
+        network = net;
+      }
+    }
 
-    let { web3s } = this.props;
-
-    let accounts = this.getAccounts();
+    console.log("AccountsPage - networks", this.props.networks)
 
     return (
-      <Accounts accounts={accounts}/>
+      <Accounts network={network}/>
     );
   }
 }
 
-export default connect(mapStateToProps, null)(AccountsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(AccountsPage);

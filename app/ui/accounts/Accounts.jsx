@@ -11,13 +11,18 @@ export default class Accounts extends Component<Props> {
 
   render() {
 
-    let { accounts } = this.props;
-    console.log("accounts", accounts)
+    let { network } = this.props;
+    let accounts = [];
+
+    let title = "Accounts"
+    if (network.name) {
+      title = network.name + " - Accounts"
+    }
 
     return (
       <Container>
         <Row>
-          <h2>Accounts</h2>
+          <h2>{title}</h2>
         </Row>
         <Row>
           <Col>

@@ -11,7 +11,7 @@ window.ipcRenderer = require('electron').ipcRenderer;
 
 var content = require('../app.html');
 
-console.log("preload!!", content)
+// console.log("preload!!", content)
 console.log("window", window)
 
 /*

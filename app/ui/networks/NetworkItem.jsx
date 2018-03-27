@@ -32,6 +32,7 @@ export default class NetworkItem extends Component<Props> {
     let {
       network, handleConnect, handleDisconnect,
       handleAdd, handleEdit, handleDelete, handleDefault,
+      handleAccounts,
     } = this.props;
 
     return (
@@ -55,7 +56,7 @@ export default class NetworkItem extends Component<Props> {
               </DropdownItem>
 
               <DropdownItem
-                onClick={() => {handleDefault(network.id)} }
+                onClick={() => {handleAccounts(network.id)} }
               >
                 Accounts
               </DropdownItem>
