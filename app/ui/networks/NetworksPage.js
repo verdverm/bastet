@@ -31,6 +31,26 @@ class NetworksPage extends Component<Props> {
     this.props.disconnectNetwork(window.ipcBus, id);
   }
 
+  handleAdd = (network) => {
+    console.log("adding: ", network)
+    this.props.addNetwork(window.ipcBus, network);
+  }
+
+  handleUpdate = (network) => {
+    console.log("update: ", network)
+    this.props.updateNetwork(window.ipcBus, network);
+  }
+
+  handleDelete = (id) => {
+    console.log("deleting: " + id)
+    this.props.deleteNetwork(window.ipcBus, id);
+  }
+
+  handleDefault = (id) => {
+    console.log("defaulting: " + id)
+    this.props.setDefaultNetwork(window.ipcBus, id);
+  }
+
   componentWillMount() {
     console.log(this.props)
     this.props.listenNetworks(window.ipcBus);
@@ -38,8 +58,8 @@ class NetworksPage extends Component<Props> {
   }
 
   componentWillUnmount() {
-    console.log(this.props)
-    this.props.unlistenNetworks(window.ipcBus);
+    // console.log(this.props)
+    // this.props.unlistenNetworks(window.ipcBus);
   }
 
   render() {
@@ -53,6 +73,10 @@ class NetworksPage extends Component<Props> {
         networks={networks}
         handleConnect={this.handleConnect}
         handleDisconnect={this.handleDisconnect}
+        handleAdd={this.handleAdd}
+        handleUpdate={this.handleUpdate}
+        handleDelete={this.handleDelete}
+        handleDefault={this.handleDefault}
       />
     );
   }

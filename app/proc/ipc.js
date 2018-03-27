@@ -27,17 +27,6 @@ const initIpcBusClient = async () => {
 
   addListeners(ipcBusClient)
 
-  // Channel for Bastet UI ux events and management (electron part of Bastet UI)
-  ipcBusClient.addListener('ui', (ipcBusEvent, payload) => {
-    console.log("IPC-UI: ", ipcBusEvent, payload)
-
-  });
-
-  // Channel for Bastet UI rpc  (ethereum part of Bastet UI)
-  ipcBusClient.addListener('rpc', (ipcBusEvent, payload) => {
-    console.log("IPC-RPC: ", ipcBusEvent, payload)
-
-  });
 }
 
 const initIpcBridge = async () => {

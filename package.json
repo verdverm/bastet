@@ -219,7 +219,10 @@
     "redux-thunk": "^2.2.0",
     "source-map-support": "^0.5.3",
     "url": "^0.11.0",
-    "uuid": "^3.2.1"
+    "uuid": "^3.2.1",
+    "web3-providers-http": "^1.0.0-beta.33",
+    "web3-providers-ipc": "^1.0.0-beta.33",
+    "web3-providers-ws": "^1.0.0-beta.33"
   },
   "devEngines": {
     "node": ">=7.x",

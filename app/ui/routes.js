@@ -12,8 +12,8 @@ import DappsPage from './dapps/DappsPage';
 export default () => (
   <App>
     <Switch>
-      <Route path="/accounts" component={AccountsPage} />
       <Route path="/networks" component={NetworksPage} />
+      <Route path="/accounts" component={AccountsPage} />
       <Route path="/dapps" component={DappsPage} />
 
       <Route path="/" component={HomePage} />

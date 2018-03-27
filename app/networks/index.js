@@ -1,17 +1,28 @@
 import uuid from 'uuid';
+import Web3 from 'web3';
 
 import store from '../store';
 
 var networks = null;
+var defaultNetwork = null;
 
+export function getDefaultWeb3() {
+  if (defaultNetwork !== null) {
+    return defaultNetwork.web3;
+  } else {
+    return null;
+  }
+}
 
 export function getNetworks() {
-  resetNetworks();
   if (networks === null) {
     loadNetworks();
   }
   var ret = {};
   Object.entries(networks).forEach( ([id, net]) => {
+    if (net.name === 'undefined') {
+      return
+    }
     var n = Object.assign({}, net)
     delete n.web3
     ret[id] = n
@@ -24,10 +35,30 @@ export function getNetwork(id) {
   if (networks === null) {
     loadNetworks();
   }
-  return networks[id];
+  var n = Object.assign({}, networks[id])
+  delete n.web3
+  return n;
 }
 
-export function addNetwork(name, type, location) {
+export function setDefaultNetwork(id) {
+  if (networks === null) {
+    loadNetworks();
+  }
+  Object.entries(networks).forEach( ([netId, net]) => {
+    if (netId === id) {
+      defaultNetwork = net;
+      net.default = true;
+    } else {
+      net.default = false;
+    }
+  });
+
+  saveNetworks();
+  return getNetworks();
+}
+
+export function addNetwork(name, location) {
+  var type = determineNetworkConnectionType(location)
   const id = uuid();
   const net = {
     id,
@@ -35,9 +66,12 @@ export function addNetwork(name, type, location) {
     type,
     location,
     connected: false,
+    default: false,
     web3: null,
   }
   networks[id] = net;
+  saveNetworks();
+  return getNetworks();
 }
 
 export function connectNetwork(id) {
@@ -45,10 +79,12 @@ export function connectNetwork(id) {
   var net = networks[id];
 
   if (net !== undefined) {
-    networks[id].connected = true
+    createWeb3(net)
+    net.connected = true
+    saveNetworks();
   }
 
-  return networks;
+  return getNetworks();
 }
 
 export function disconnectNetwork(id) {
@@ -59,31 +95,52 @@ export function disconnectNetwork(id) {
     networks[id].connected = false
   }
 
-  return networks;
+  saveNetworks();
+  return getNetworks();
 }
 
-export function delNetwork(id) {
+export function updateNetwork(net) {
+  networks[net.id] = net;
+  saveNetworks();
+  return getNetworks();
+}
+
+export function deleteNetwork(id) {
   delete networks[id];
+  saveNetworks();
+  return getNetworks();
 }
 
 export function saveNetworks() {
-  store.set('networks', networks);
+  var nets = getNetworks();
+  store.set('networks', nets);
 }
 
 export function loadNetworks() {
   var nets = store.get('networks');
   if (nets !== null && nets !== undefined) {
+    delete nets['undefined']
     networks = nets;
   } else {
     console.log("WARN: unable to load networks config, setting to defaults and saving")
     networks = defaultNetworks();
     saveNetworks();
   }
+  Object.entries(networks).forEach( ([id, net]) => {
+    if(net.connected) {
+      createWeb3(net)
+    }
+    if(net.default) {
+      setDefaultNetwork(id)
+    }
+  });
+
 }
 
 export function resetNetworks() {
   networks = defaultNetworks();
   saveNetworks();
+  return getNetworks();
 }
 
 export function defaultNetworks() {
@@ -125,8 +182,47 @@ export function defaultNetworks() {
       name: 'Local Ganache',
       type: 'http',
       location: 'http://localhost:8545/',
-      connected: false,
+      connected: true,
+      default: true,
       web3: null,
     },
   }
+}
+
+function determineNetworkConnectionType(location) {
+  if (location.substr(0,5) === 'https') {
+    return 'https'
+  }
+  if (location.substr(0,4) === 'http') {
+    return 'http'
+  }
+  if (location.substr(0,3) === 'wss') {
+    return 'wss'
+  }
+  if (location.substr(0,2) === 'ws') {
+    return 'ws'
+  }
+  return 'ipc'
+}
+
+function createWeb3(network) {
+  if (network.type === 'http' || network.type === 'https') {
+    var provider = new Web3.providers.HttpProvider(network.location)
+    network.web3 = new Web3(provider);
+    return
+  }
+
+  if (network.type === 'ws' || network.type === 'wss') {
+    var provider = new Web3.providers.WsProvider(network.location)
+    network.web3 = new Web3(provider);
+    return
+  }
+
+  if (network.type === 'ipc') {
+    var provider = new Web3.providers.IpcProvider(network.location)
+    network.web3 = new Web3(provider);
+    return
+  }
+
+
 }

@@ -17,9 +17,20 @@
   color: black;
 }
 
+.formLabel {
+  font-size: 0.8rem;
+  color: black;
+}
+
 .connectionButton {
   float: right;
   min-width: 120px;
+  margin-right: 1rem;
+}
+
+.optionsButton {
+  float: right;
+  margin-right: 1rem;
 }
 
 .connected {

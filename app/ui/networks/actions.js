@@ -39,7 +39,6 @@ export function getNetworks(ipcBus) {
   return (dispatch: (action: actionType) => void, getState: () => null) => {
 
     console.log("Sending getNetworks", ipcBus, window.ipcBus)
-
     ipcBus.send('app/getNetworks', null)
 
   };
@@ -61,6 +60,46 @@ export function disconnectNetwork(ipcBus, id) {
 
     console.log("sending Disconnect network", id)
     ipcBus.send('app/disconnectNetwork', id)
+
+  };
+}
+
+export function addNetwork(ipcBus, network) {
+  console.log("Add network", network)
+  return (dispatch: (action: actionType) => void, getState: () => null) => {
+
+    console.log("sending Add network", network)
+    ipcBus.send('app/addNetwork', network)
+
+  };
+}
+
+export function updateNetwork(ipcBus, network) {
+  console.log("Network network", network)
+  return (dispatch: (action: actionType) => void, getState: () => null) => {
+
+    console.log("sending Update network", network)
+    ipcBus.send('app/updateNetwork', network)
+
+  };
+}
+
+export function deleteNetwork(ipcBus, id) {
+  console.log("Deleting network", id)
+  return (dispatch: (action: actionType) => void, getState: () => null) => {
+
+    console.log("sending Delete network", id)
+    ipcBus.send('app/deleteNetwork', id)
+
+  };
+}
+
+export function setDefaultNetwork(ipcBus, id) {
+  console.log("Defaulting network", id)
+  return (dispatch: (action: actionType) => void, getState: () => null) => {
+
+    console.log("sending Default network", id)
+    ipcBus.send('app/setDefaultNetwork', id)
 
   };
 }

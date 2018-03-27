@@ -1,8 +1,9 @@
 import EthereumTx from 'ethereumjs-tx';
-import Web3 from 'web3';
 
 import { getIpcClient } from '../proc/ipc';
 import { sendRequest } from '../ui/ipc/send.js';
+
+import { loadNetworks, getDefaultWeb3 } from '../networks';
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -10,8 +11,10 @@ function sleep(ms) {
 
 
 // backend (proxied) providers
-var ganacheP = new Web3.providers.HttpProvider('http://127.0.0.1:8545')
-var ganache = new Web3(ganacheP);
+// var ganacheP = new Web3.providers.HttpProvider('http://127.0.0.1:8545')
+// var ganache = new Web3(ganacheP);
+loadNetworks();
+var network = getDefaultWeb3();
 
 const keys = require('./keys')
 console.log("Keys")
@@ -26,7 +29,6 @@ var mainnet = new Web3(mainnetP);
 
 // TODO, get version from package
 const version = "Bastet:v0.0.1";
-var network = ganache;
 
 export default {
   net_version: (args, callback) => {
@@ -101,16 +103,19 @@ export default {
           waiting = false;
 
         } else {
-          console.log("APPROVAL !!!")
+          console.log("APPROVAL !!!", txParams, keys)
           // TODO get key from encrpypted store
           const key = keys[txParams.from]
+          console.log("Key:", key)
           const privateKey = Buffer.from(key, 'hex')
 
           // Create and sign the transaction
           const tx = new EthereumTx(txParams)
+          console.log("TX:", tx)
           tx.sign(privateKey)
           const serializedTx = tx.serialize()
 
+          console.log("sending signed transaction")
           network.eth.sendSignedTransaction('0x' + serializedTx.toString('hex'), (err, result) => {
             console.log("send result", result, err)
             callback(err, result)
