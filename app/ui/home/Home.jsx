@@ -25,7 +25,7 @@ export default class Home extends Component<Props> {
             <span className='text-white'>Next, try pointing a Dapp Web3 at <i>http://localhost:4545</i></span>
             <br />
             <br />
-            <span className='text-white'>Then, come back here (Home) and check on notifications.</span>
+            <span className='text-white'>Then come back here and watch for Dapp and signing notifications.</span>
           </Col>
         </Row>
       </Container>
