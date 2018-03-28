@@ -1,4 +1,4 @@
-import * as Accts from '../../rpc/accounts';
+import * as Accts from './rpc';
 
 export function addListeners(ipcBus) {
 

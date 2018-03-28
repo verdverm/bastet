@@ -2,9 +2,12 @@
 import { combineReducers } from 'redux';
 import { routerReducer as router } from 'react-router-redux';
 
+// standard
 import home from '../../home/reducers';
-import networks from '../../networks/reducers';
-import accounts from '../../accounts/reducers';
+
+// modules
+import networks from '../../../modules/networks/ui/reducers';
+import accounts from '../../../modules/accounts/ui/reducers';
 
 const rootReducer = combineReducers({
   home,

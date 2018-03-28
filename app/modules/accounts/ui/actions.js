@@ -1,4 +1,4 @@
-export * from '../networks/actions';
+export * from '../../networks/ui/actions';
 
 export const ACCOUNTS_LOADED = 'ACCOUNTS_LOADED';
 

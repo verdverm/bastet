@@ -1,4 +1,4 @@
-import * as Nets from '../networks';
+import * as Nets from './lib';
 
 export default {
   getNetworks: () => {

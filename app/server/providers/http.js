@@ -3,10 +3,10 @@ import cors from 'cors';
 import bodyParser from 'body-parser';
 
 // lets only serve the Web3 API here
-import rpc from '../../rpc/web3';
-import proxy from '../../rpc/proxy';
+import rpc from '../rpc/web3';
+import proxy from '../rpc/proxy';
 
-import { getDefaultNetwork } from '../../networks';
+import { getDefaultNetwork } from '../../modules/networks/server/lib';
 
 // An express server which will be wrapped by wss
 var app = express();

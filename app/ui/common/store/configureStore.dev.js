@@ -7,8 +7,8 @@ import { createLogger } from 'redux-logger';
 import rootReducer from '../reducers';
 
 import * as homeActions from '../../home/actions';
-import * as networksActions from '../../networks/actions';
-import * as accountsActions from '../../accounts/actions';
+import * as networksActions from '../../../modules/networks/ui/actions';
+import * as accountsActions from '../../../modules/accounts/ui/actions';
 
 const history = createHashHistory();
 

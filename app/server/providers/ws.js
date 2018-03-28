@@ -3,7 +3,8 @@ import { createServer } from 'http';
 import app from './http'
 
 // lets only serve the Web3 API here
-import rpc from '../../rpc/web3';
+import rpc from '../rpc/web3';
+import proxy from '../rpc/proxy';
 
 // A HTTP server server
 var server = createServer();
@@ -35,6 +36,9 @@ function setupNewWssConn(ws) {
     }
     ws.send(JSON.stringify(response));
   });
+
+
+  return 'ok'
 
 }
 

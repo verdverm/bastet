@@ -5,9 +5,9 @@ import { Switch, Route } from 'react-router';
 import App from './common/containers/App';
 
 import HomePage from './home/HomePage';
-import NetworksPage from './networks/NetworksPage';
-import AccountsPage from './accounts/AccountsPage';
-import DappsPage from './dapps/DappsPage';
+import NetworksPage from '../modules/networks/ui/NetworksPage';
+import AccountsPage from '../modules/accounts/ui/AccountsPage';
+import DappsPage from '../modules/dapps/ui/DappsPage';
 
 export default () => (
   <App>

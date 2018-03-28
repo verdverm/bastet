@@ -1,4 +1,4 @@
-import { getNetworkWithWeb3 } from '../networks';
+import { getNetworkWithWeb3 } from '../../networks/server/lib';
 
 export async function getAccounts(netId) {
   const network = getNetworkWithWeb3(netId);

@@ -1,7 +1,7 @@
 import EthereumTx from 'ethereumjs-tx';
 
-import { getIpcClient } from '../proc/ipc';
-import { sendRequest } from '../ui/ipc/send.js';
+import { getIpcClient } from '../../proc/ipc';
+import { sendRequest } from '../../ui/ipc/send.js';
 
 import keys from './keys';
 

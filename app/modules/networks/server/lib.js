@@ -1,7 +1,7 @@
 import uuid from 'uuid';
 import Web3 from 'web3';
 
-import store from '../store';
+import store from '../../store';
 
 var networks = null;
 var defaultNetwork = null;

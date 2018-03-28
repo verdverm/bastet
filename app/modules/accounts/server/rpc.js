@@ -1,4 +1,4 @@
-import * as Accts from '../accounts';
+import * as Accts from './lib';
 
 export default {
   getAccounts: (netId) => {

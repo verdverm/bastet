@@ -1,4 +1,4 @@
-import * as Nets from '../../rpc/networks';
+import * as Nets from './rpc';
 
 export function addListeners(ipcBus) {
 

@@ -66,6 +66,8 @@ var MainProcess = (function () {
       const menuBuilder = new MenuBuilder(mainWindow);
       menuBuilder.buildMenu();
 
+      mainWindow.center();
+
       mainWindow.webContents.on('dom-ready', function () {
         console.log("DOM READY", mainWindow.webContents.getURL())
         mainWindow.webContents.send('initializeWindow', { title: 'Main', type: 'browser', id: 0, peerName: peerName, webContentsId: mainWindow.webContents.id });
