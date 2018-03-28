@@ -3,39 +3,23 @@ import EthereumTx from 'ethereumjs-tx';
 import { getIpcClient } from '../proc/ipc';
 import { sendRequest } from '../ui/ipc/send.js';
 
-import { loadNetworks, getDefaultWeb3 } from '../networks';
+import keys from './keys';
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
 
-// backend (proxied) providers
-// var ganacheP = new Web3.providers.HttpProvider('http://127.0.0.1:8545')
-// var ganache = new Web3(ganacheP);
-loadNetworks();
-var network = getDefaultWeb3();
-
-const keys = require('./keys')
-console.log("Keys")
-
-
-/*
-var testnetP = new Web3.providers.HttpProvider('http://127.0.0.1:9545')
-var testnet = new Web3(testnetP);
-var mainnetP = new Web3.providers.HttpProvider('http://127.0.0.1:10545')
-var mainnet = new Web3(mainnetP);
-*/
 
 // TODO, get version from package
 const version = "Bastet:v0.0.1";
 
-export default {
-  net_version: (args, callback) => {
+const methods = {
+  net_version: (network, args, callback) => {
     console.log("version", version)
     callback(null, version);
   },
-  eth_accounts: async function(args, callback) {
+  eth_accounts: async function(network, args, callback) {
     console.log("eth accounts")
     var accounts = null;
 
@@ -58,7 +42,7 @@ export default {
     });
 
   },
-  eth_coinbase: (args, callback) => {
+  eth_coinbase: (network, args, callback) => {
     network.eth.getCoinbase(function(err, result) {
       if (err != null) {
         console.log("There was an error fetching coinbase.");
@@ -69,7 +53,7 @@ export default {
       callback(null, result);
     })
   },
-  eth_sendTransaction: async (args, callback) => {
+  eth_sendTransaction: async (network, args, callback) => {
     const defaultParams = {
       gasPrice: '0x000000000003',
       gasLimit: '0x271000',
@@ -135,5 +119,10 @@ export default {
       console.log("Caught Error - sendTransaction", args,  e)
     }
   }
+
+}
+
+export default methods;
+export function withNet(net) {
 
 }

@@ -39,6 +39,7 @@ app.use(cors({
   optionsSuccessStatus: 204
 }));
 app.use(jsonParser());
+
 app.use(server.middleware());
 
 /*

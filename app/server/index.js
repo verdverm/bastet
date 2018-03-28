@@ -1,13 +1,15 @@
-import server from './server';
+import server from './providers/ws';
 
 // Export some basic functions
 export default {
   Start: async () => {
-    console.log("Starting Server")
-		return server.listen(4545);
+    const port = process.env.PORT || 4545;
+    console.log("Starting Server on port: ", port);
+    return server.listen(port)
   },
   Stop: () => {
-    console.log("Stopping Server")
+    console.log("Stopping Server");
+
   }
 }
 

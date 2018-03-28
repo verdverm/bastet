@@ -14,6 +14,20 @@ export function getDefaultWeb3() {
   }
 }
 
+export function getDefaultNetwork() {
+  if (networks === null) {
+    loadNetworks();
+  }
+  var ret = {};
+  Object.entries(networks).forEach( ([id, net]) => {
+    if (net.default === true) {
+      ret = net
+    }
+  });
+
+  return ret
+}
+
 export function getNetworks() {
   if (networks === null) {
     loadNetworks();

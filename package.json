@@ -222,7 +222,8 @@
     "uuid": "^3.2.1",
     "web3-providers-http": "^1.0.0-beta.33",
     "web3-providers-ipc": "^1.0.0-beta.33",
-    "web3-providers-ws": "^1.0.0-beta.33"
+    "web3-providers-ws": "^1.0.0-beta.33",
+    "ws": "^5.1.0"
   },
   "devEngines": {
     "node": ">=7.x",
