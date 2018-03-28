@@ -1,4 +1,4 @@
-# Bastet - The Blockchain and DApp Guardian
+# Bastet - The Blockchain and Dapp Guardian
 
 _note, Bastet is still in development and
 it is not recommended to use with wallets or accounts you value :)_
@@ -32,9 +32,13 @@ to setup a default network.
 ```bash
 git clone https://github.com/verdverm/bastet-poc-demo-app
 cd bastet-poc-demo-app
+
 yarn
+
+# Update the truffle.js if needed
 yarn compile
 yarn migrate
+
 yarn dev
 ```
 
@@ -44,11 +48,14 @@ Currently, when you signup, the transaction
 is signed with the default account private key
 and then sent to the default network.
 
-More to come!
+If you use a different Dapp,
+point the Web3 provider at `http://localhost:4545`.
 
 ---
 
 The name __Bastet__ comes from an Egyptian diety for protection. ([Bastet - Wikipedia](https://en.wikipedia.org/wiki/Bastet))
+
+You can look around the [docs](./docs) and [design](./docs/design.md) to learn more.
 
 This project will use a Token Currated Registry
 to guide development and feature enhancements.
