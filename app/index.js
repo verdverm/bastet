@@ -3,11 +3,13 @@ import { render } from 'react-dom';
 import { AppContainer } from 'react-hot-loader';
 
 import Root from './ui/common/containers/Root';
-import { store, history } from './ui/common/store/configureStore';
+import { configureStore, history } from './ui/common/store/configureStore';
 
 import './app.global.css';
 
 import ProcessConnect from './proc/ProcessConnector';
+
+const store = configureStore();
 
 render(
   <AppContainer>

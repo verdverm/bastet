@@ -2,7 +2,6 @@
 import React from 'react';
 import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
-import { withRouter  } from 'react-router'
 
 import NavBar from '../components/NavBar';
 
@@ -16,8 +15,7 @@ type Props = {
 };
 
 function mapStateToProps(state) {
-  return {
-  };
+  return { };
 }
 
 function mapDispatchToProps(dispatch) {
@@ -25,7 +23,7 @@ function mapDispatchToProps(dispatch) {
 }
 
 
-class App extends React.Component<Props> {
+class Main extends React.Component<Props> {
   props: Props;
 
   componentWillMount() {
@@ -45,4 +43,5 @@ class App extends React.Component<Props> {
   }
 }
 
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default connect(mapStateToProps, mapDispatchToProps)(Main);
+
