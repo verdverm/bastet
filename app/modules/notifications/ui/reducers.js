@@ -10,34 +10,58 @@ type actionType = {
 };
 
 export type stateType = {
-  +requests: array
+  +pending: array,
+  +history: array,
 };
 
 const initialState = {
-  requests: [],
+  pending: [],
+  history: [],
 }
 
 export default function notifications(state: stateType = initialState, action: actionType) {
   switch (action.type) {
     case PENDING_REQUEST:
-      var newReqs = state.slice();
-      newReqs.push(action.payload)
+      console.log(action)
+
+      var pending = state.pending.slice();
+      var history = state.history.slice();
+
+      pending.push(action.payload)
+
       return Object.assign({}, state, {
-        requests: newReqs,
+        pending,
+        history,
       })
 
     case APPROVE_REQUEST:
-      var newReqs = state.slice();
       console.log(action)
+
+      var pending = state.pending.slice();
+      console.log("Approve pending", pending)
+      pending = pending.filter(elem => elem.id !== action.payload.id)
+      console.log("Approve pending2", pending)
+
+      var history = state.history.slice();
+      history.push(action.payload)
+
       return Object.assign({}, state, {
-        requests: newReqs,
+        pending,
+        history,
       })
 
     case DENY_REQUEST:
-      var newReqs = state.slice();
       console.log(action)
+
+      var pending = state.pending.slice();
+      pending = pending.filter(elem => elem.id !== action.payload.id)
+
+      var history = state.history.slice();
+      history.push(action.payload)
+
       return Object.assign({}, state, {
-        requests: newReqs,
+        pending,
+        history,
       })
 
     default:

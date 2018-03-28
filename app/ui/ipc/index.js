@@ -2,8 +2,6 @@ import ProcessConnector from '../../proc/ProcessConnector';
 
 import * as Handlers from './onHandlers';
 
-import { sendRequest } from './send.js';
-
 var processId;
 var peerName;
 var processToMaster = null;
@@ -37,11 +35,6 @@ function initIpc() {
         let prom = ipcBus.connect();
         prom.then(() => {
             console.log('browser : connected to ipcBus');
-            ipcBus.on('app/signing-request', async (ipcBusEvent, payload) => {
-              console.log("Signing Request!", ipcBusEvent, payload)
-              await sendRequest(payload)
-              console.log("Signing Request Sent")
-            })
           });
         resolve(prom);
       }

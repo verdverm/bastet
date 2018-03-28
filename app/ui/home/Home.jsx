@@ -3,8 +3,6 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Container, Row, Col, Button  } from 'reactstrap';
 
-import Modal from './Modal';
-
 import styles from './Home.css';
 
 type Props = {};
@@ -13,8 +11,6 @@ export default class Home extends Component<Props> {
   props: Props;
 
   render() {
-    let {sayHello} = this.props;
-
     return (
       <Container>
         <Row>
@@ -31,9 +27,6 @@ export default class Home extends Component<Props> {
             <br />
             <span className='text-white'>Then, come back here (Home) and check on notifications.</span>
           </Col>
-        </Row>
-        <Row>
-          <Modal buttonLabel={"Modal"}/>
         </Row>
       </Container>
     );

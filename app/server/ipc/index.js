@@ -1,6 +1,7 @@
 import * as Ui  from './ui';
 import * as Rpc from './rpc';
 
+import * as Notifications from '../../modules/notifications/server/ipc';
 import * as Networks from '../../modules/networks/server/ipc';
 import * as Accounts from '../../modules/accounts/server/ipc';
 

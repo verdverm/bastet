@@ -15,6 +15,9 @@ export default class Dapps extends Component<Props> {
         <Row>
           <h2>Dapps</h2>
         </Row>
+        <Row>
+          List, notifications, and settings coming soon.
+        </Row>
       </Container>
     );
   }

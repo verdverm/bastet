@@ -2,9 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import bodyParser from 'body-parser';
 
-// lets only serve the Web3 API here
-import rpc from '../rpc/web3';
-import proxy from '../rpc/proxy';
+import intercept from '../rpc/web3-intercept';
+import proxy from '../rpc/web3-proxy';
 
 import { getDefaultNetwork } from '../../modules/networks/server/lib';
 
@@ -41,7 +40,7 @@ app.post('/', function(req, res) {
   console.log("  using network: ", net.name, net.id, net.location)
 
   // One of our intercepted methods?
-  const method = rpc[rpcReq.method]
+  const method = intercept[rpcReq.method]
   if (method) {
     console.log('RPC - HTTP - found overridden method')
     console.log("  method: ", method)

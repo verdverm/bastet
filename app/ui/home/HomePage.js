@@ -10,8 +10,6 @@ class HomePage extends Component<Props> {
 
   render() {
 
-    console.log(this.props)
-
     return (
       <Home />
     );

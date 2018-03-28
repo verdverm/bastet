@@ -2,9 +2,8 @@ import WebSocket from 'ws';
 import { createServer } from 'http';
 import app from './http'
 
-// lets only serve the Web3 API here
-import rpc from '../rpc/web3';
-import proxy from '../rpc/proxy';
+import intercept from '../rpc/web3-intercept';
+import proxy from '../rpc/web3-proxy';
 
 // A HTTP server server
 var server = createServer();

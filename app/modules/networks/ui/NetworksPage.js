@@ -54,11 +54,6 @@ class NetworksPage extends Component<Props> {
     this.props.getNetworks(window.ipcBus);
   }
 
-  componentWillUnmount() {
-    // console.log(this.props)
-    // this.props.unlistenNetworks(window.ipcBus);
-  }
-
   render() {
 
     let { networks } = this.props;

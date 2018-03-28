@@ -16,8 +16,7 @@ type Props = {
 };
 
 function mapStateToProps(state) {
-  return {
-  };
+  return {};
 }
 
 function mapDispatchToProps(dispatch) {
@@ -30,6 +29,7 @@ class App extends React.Component<Props> {
 
   componentWillMount() {
     initIpc().then(() => {
+      this.props.listenNotifications(window.ipcBus);
       this.props.listenNetworks(window.ipcBus);
       this.props.listenAccounts(window.ipcBus);
     });

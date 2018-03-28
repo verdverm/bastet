@@ -9,9 +9,7 @@ export function networksLoaded(networks) {
 
 export function listenNetworks(ipcBus) {
   return (dispatch: (action) => void, getState: () => null) => {
-    console.log("NETWORKS !!!", 'listening')
     ipcBus.addListener('app/networks', (ipcBusEvent, networks) => {
-      console.log("NETWORKS !!!", networks)
       dispatch(networksLoaded(networks));
     })
   };
@@ -34,9 +32,7 @@ export function accountsLoaded(results) {
 
 export function listenAccounts(ipcBus) {
   return (dispatch: (action) => void, getState: () => null) => {
-    console.log("ACCOUNTS !!!", 'listening')
     ipcBus.addListener('app/accounts', (ipcBusEvent, accounts) => {
-      console.log("ACCOUNTS !!!", accounts)
       dispatch(accountsLoaded(accounts));
     })
   };
@@ -45,6 +41,28 @@ export function listenAccounts(ipcBus) {
 export function unlistenAccounts(ipcBus) {
   return (dispatch: (action) => void, getState: () => null) => {
     ipcBus.removeListener('app/accounts')
+  };
+}
+
+export const PENDING_REQUEST = 'PENDING_REQUEST';
+
+export function pendingRequest(results) {
+  return {
+    type: PENDING_REQUEST,
+    payload: results
+  }
+}
+export function listenNotifications(ipcBus) {
+  return (dispatch: (action) => void, getState: () => null) => {
+    ipcBus.addListener('app/notifications', (ipcBusEvent, payload) => {
+      dispatch(pendingRequest(payload));
+    })
+  };
+}
+
+export function unlistenNotifications(ipcBus) {
+  return (dispatch: (action) => void, getState: () => null) => {
+    ipcBus.removeListener('app/notifications')
   };
 }
 

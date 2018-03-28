@@ -1,7 +1,7 @@
 import EthereumTx from 'ethereumjs-tx';
+import uuid from 'uuid';
 
 import { getIpcClient } from '../../proc/ipc';
-import { sendRequest } from '../../ui/ipc/send.js';
 
 import keys from './keys';
 
@@ -68,18 +68,27 @@ const methods = {
     try {
 
       const rawTx = args[0]
-      const txParams = Object.assign(defaultParams, rawTx)
+      const reqTxParams = Object.assign(defaultParams, rawTx)
 
       let cnt = await network.eth.getTransactionCount(rawTx.from)
       const Nonce = '0x' + cnt.toString(16)
-      txParams.nonce = Nonce
+      reqTxParams.nonce = Nonce
 
       // Pause for user input
       var waiting = true;
       let ipcBusClient = getIpcClient();
-      ipcBusClient.send("app/signing-request", txParams);
 
-      ipcBusClient.once("app/signing-approve", (approve) => {
+      var req = {
+        type: 'signing request',
+        id: uuid(),
+        txParams: reqTxParams,
+      }
+      ipcBusClient.send("app/notifications", req);
+
+      ipcBusClient.once("app/signing-approve:"+req.id, (ipcBusEvent, resp) => {
+
+        console.log("Received Response:", ipcBusEvent, resp)
+        let { id, txParams, approve } = resp;
 
         if (approve === false) {
           console.log("DENIED !!!")
@@ -108,12 +117,6 @@ const methods = {
         }
 
       });
-
-
-      do {
-        console.log("waiting for signing", waiting)
-        await sleep(1000)
-      } while (waiting)
 
     } catch( e ) {
       console.log("Caught Error - sendTransaction", args,  e)

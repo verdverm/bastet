@@ -24,8 +24,6 @@ class DappsPage extends Component<Props> {
 
   render() {
 
-    console.log(this.props)
-
     return (
       <Dapps />
     );

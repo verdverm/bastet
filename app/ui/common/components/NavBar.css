@@ -4,6 +4,18 @@ span {
   margin-right: 3px;
 }
 
+.navbar-toggler-icon {
+  background-color: #637a9e!important;
+}
+
+.menubutton {
+  background-color: #637a9e!important;
+}
+
+.menubutton span {
+  color: white!important;
+}
+
 .dropdown {
   color: white!important;
   padding-top: 0!important;
@@ -11,7 +23,9 @@ span {
 
 .dropdownHome {
   color: black!important;
+  width: '100%';
 }
 .dropdownHome a {
   color: black!important;
+  width: '100%';
 }
