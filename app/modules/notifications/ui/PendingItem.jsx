@@ -1,10 +1,10 @@
 // @flow
 import React, { Component } from 'react';
 import {
-  ListGroup, ListGroupItem, ListGroupItemHeading, ListGroupItemText,
-  Button, ButtonDropdown, DropdownToggle, DropdownMenu, DropdownItem,
+  Button, ListGroupItem, ListGroupItemHeading, ListGroupItemText,
 } from 'reactstrap';
 
+import TxView from './TxView';
 import styles from './styles.css';
 
 type Props = {};
@@ -27,14 +27,7 @@ export default class PendingItem extends Component<Props> {
 
   render() {
 
-    let {
-      pending,
-      handleApprove, handleDeny,
-    } = this.props;
-
-    console.log("PendingItem:", this.props)
-
-    let message = "Transaction Details: " + JSON.stringify(pending.txParams)
+    let { pending, handleApprove, handleDeny } = this.props;
 
     return (
       <ListGroupItem className={styles.listGroup}>
@@ -47,8 +40,7 @@ export default class PendingItem extends Component<Props> {
           </span>
         </ListGroupItemHeading>
         <ListGroupItemText className={styles.listItemText}>
-          <span>ID: {pending.id}</span><br />
-          <span className="text-muted" style={{wordWrap:"break-word"}}>{message}</span>
+          <TxView tx={pending} />
         </ListGroupItemText>
       </ListGroupItem>
     );
