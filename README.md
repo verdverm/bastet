@@ -6,10 +6,11 @@ it is not recommended to use with wallets or accounts you value :)_
 ### Features
 
 - Stand-alone application or modular setups, customized to your needs.
-- Connect to multiple networks simultaneously and manage accounts with ease.
+- Connect to multiple networks simultaneously and manage accounts, wallets, and keys with ease.
 - Control Dapps access and permissions to the networks, accounts, keys, and apis.
 - Security by design with isolated processes, secure IPC and customizable TLS, remote/offline signing, and modern encryption.
-- Downloads available for Windows, Mac, and Linux.
+- Hardware wallet support for Ledger and Trezor.
+- [Downloads](https://drive.google.com/open?id=1mGVt5M_3C9NwSFAMJ79G56sGX4qrL899) available for Windows, Mac, and Linux.
 
 ### Installation & Setup
 
