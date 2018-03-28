@@ -7,13 +7,11 @@ import { createLogger } from 'redux-logger';
 
 import rootReducer from '../reducers';
 
-import * as homeActions from '../../home/actions';
-
+import * as notificationActions from '../../../modules/notifications/ui/actions';
 import * as networksActions from '../../../modules/networks/ui/actions';
 import * as accountsActions from '../../../modules/accounts/ui/actions';
 
 const history = createHashHistory();
-const router = routerMiddleware(history);
 
 function configureStore(initialState) {
   // Redux Configuration
@@ -35,11 +33,12 @@ function configureStore(initialState) {
   }
 
   // Router Middleware
+  const router = routerMiddleware(history);
   middleware.push(router);
 
   // Redux DevTools Configuration
   const actionCreators = {
-    ...homeActions,
+    ...notificationActions,
     ...networksActions,
     ...accountsActions,
     ...routerActions,
