@@ -14,7 +14,7 @@ yarn
 yarn dev
 ```
 
-### Setup a Ethereum blockchain
+### Setup an Ethereum blockchain
 
 Make sure you have ganache-cli installed.
 

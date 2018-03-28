@@ -13,10 +13,12 @@ it is not recommended to use with wallets or accounts you value :)_
 
 ### Installation & Setup
 
-Get Bastet from [the downloads](https://drive.google.com/open?id=1mGVt5M_3C9NwSFAMJ79G56sGX4qrL899))
-or [the developer setup](./docs/development.md)
+Get Bastet from
+[the downloads](https://drive.google.com/open?id=1mGVt5M_3C9NwSFAMJ79G56sGX4qrL899)
+or
+[the developer setup](./docs/development.md)
 
-### Setup a Ethereum blockchain
+### Setup an Ethereum blockchain
 
 Make sure you have ganache-cli installed.
 
