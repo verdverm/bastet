@@ -54,10 +54,6 @@ export default class NavBar extends Component<Props> {
               </NavItem>
               <span> - </span>
               <NavItem>
-                <Link to="/accounts">Accounts</Link>
-              </NavItem>
-              <span> - </span>
-              <NavItem>
                 <Link to="/dapps">Dapps</Link>
               </NavItem>
             </Nav>

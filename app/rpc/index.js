@@ -1,7 +1,4 @@
-import rpcWeb3 from './web3';
-import rpcAdmin from './admin';
+export * from './web3';
+export * from './networks';
+export * from './accounts';
 
-export default {
-  ...rpcWeb3,
-  ...rpcAdmin
-}

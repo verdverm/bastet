@@ -28,12 +28,9 @@ class App extends React.Component<Props> {
   props: Props;
 
   componentWillMount() {
-    let prom = initIpc();
-    console.log("PROM", prom)
-    prom.then(() => {
-      console.log("Starting to listen")
+    initIpc().then(() => {
       this.props.listenNetworks(window.ipcBus);
-      // this.props.listenAccounts(window.ipcBus);
+      this.props.listenAccounts(window.ipcBus);
     });
   }
 

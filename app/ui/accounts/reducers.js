@@ -13,7 +13,7 @@ const initialState = {
   accounts: [],
 }
 
-export default function accountsReducer(state: accountsStateType = initialState, action: actionType) {
+export default function accounts(state: accountsStateType = initialState, action: actionType) {
   switch (action.type) {
     case ACCOUNTS_LOADED:
       return Object.assign({}, state, {

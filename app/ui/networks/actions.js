@@ -20,13 +20,13 @@ export function getNetworks(ipcBus) {
 
 export function connectNetwork(ipcBus, id) {
   return (dispatch: (action: actionType) => void, getState: () => null) => {
-    ipcBus.send('app/connectNetwork', id)
+    ipcBus.send('app/connectNetwork', { netId: id })
   };
 }
 
 export function disconnectNetwork(ipcBus, id) {
   return (dispatch: (action: actionType) => void, getState: () => null) => {
-    ipcBus.send('app/disconnectNetwork', id)
+    ipcBus.send('app/disconnectNetwork', { netId: id })
   };
 }
 
@@ -44,13 +44,13 @@ export function updateNetwork(ipcBus, network) {
 
 export function deleteNetwork(ipcBus, id) {
   return (dispatch: (action: actionType) => void, getState: () => null) => {
-    ipcBus.send('app/deleteNetwork', id)
+    ipcBus.send('app/deleteNetwork', { netId: id })
   };
 }
 
 export function setDefaultNetwork(ipcBus, id) {
   return (dispatch: (action: actionType) => void, getState: () => null) => {
-    ipcBus.send('app/setDefaultNetwork', id)
+    ipcBus.send('app/setDefaultNetwork', { netId: id })
   };
 }
 

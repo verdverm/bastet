@@ -39,7 +39,7 @@ var MainProcess = (function () {
         height: 900,
         show: true,
         backgroundColor: '#2e2c29',
-        // autoHideMenuBar: true,
+        autoHideMenuBar: true,
         webPreferences:
         {
           preload: preloadFile,
@@ -79,9 +79,11 @@ var MainProcess = (function () {
           var newProcess = null;
           switch (processType) {
               case 'renderer':
+                  console.log("New Renderer Process")
                   newProcess = new RendererProcess(processId);
                   break;
               case 'node':
+                  console.log("New Node Process")
                   newProcess = new NodeProcess(processId);
                   break;
           }

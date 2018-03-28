@@ -77,8 +77,8 @@ async function setup() {
       await installExtensions();
     }
 
-    // await ipcSystem.Start(true);
-    await ipcSystem.Start(false);
+    await ipcSystem.Start(true);
+    // await ipcSystem.Start(false);
     bastetServer.Start();
 
     console.log("Got Here")

@@ -1,13 +1,42 @@
-.container {
-  top: 10px;
-  left: 10px;
-  text-align: left;
+.listGroup {
+  padding: 0;
 }
 
-.container h2 {
-  font-size: 5rem;
+.listItemHeading {
+  font-size: 1rem;
+  color: black;
+  margin: 0;
 }
 
-.container a {
-  font-size: 1.4rem;
+.listItemText {
+  margin: 0;
+}
+
+.listItemText span {
+  font-size: 0.8rem;
+  color: black;
+}
+
+.formLabel {
+  font-size: 0.8rem;
+  color: black;
+}
+
+.connectionButton {
+  float: right;
+  min-width: 120px;
+  margin-right: 1rem;
+}
+
+.optionsButton {
+  float: right;
+  margin-right: 1rem;
+}
+
+.connected {
+  color: green!important;
+}
+
+.disconnected {
+  color: grey!important;
 }

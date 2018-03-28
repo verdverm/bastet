@@ -9,7 +9,9 @@ export function networksLoaded(networks) {
 
 export function listenNetworks(ipcBus) {
   return (dispatch: (action) => void, getState: () => null) => {
+    console.log("NETWORKS !!!", 'listening')
     ipcBus.addListener('app/networks', (ipcBusEvent, networks) => {
+      console.log("NETWORKS !!!", networks)
       dispatch(networksLoaded(networks));
     })
   };
@@ -21,10 +23,21 @@ export function unlistenNetworks(ipcBus) {
   };
 }
 
+export const ACCOUNTS_LOADED = 'ACCOUNTS_LOADED';
+
+export function accountsLoaded(results) {
+  return {
+    type: ACCOUNTS_LOADED,
+    payload: results
+  }
+}
+
 export function listenAccounts(ipcBus) {
   return (dispatch: (action) => void, getState: () => null) => {
+    console.log("ACCOUNTS !!!", 'listening')
     ipcBus.addListener('app/accounts', (ipcBusEvent, accounts) => {
-      dispatch(networksLoaded(accounts));
+      console.log("ACCOUNTS !!!", accounts)
+      dispatch(accountsLoaded(accounts));
     })
   };
 }

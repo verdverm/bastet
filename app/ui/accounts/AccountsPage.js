@@ -11,6 +11,7 @@ type Props = {};
 function mapStateToProps(state) {
   return {
     networks: state.networks.networks,
+    accounts: state.accounts.accounts,
   };
 }
 
@@ -21,8 +22,37 @@ function mapDispatchToProps(dispatch) {
 class AccountsPage extends Component<Props> {
   props: Props;
 
+  handleUnlock = (netId, acctId) => {
+    this.props.unlockAccount(window.ipcBus, netId, acctId);
+  }
+
+  handleLock = (netId, acctId) => {
+    this.props.lockAccount(window.ipcBus, netId, acctId);
+  }
+
+  handleAdd = (netId, acct) => {
+    this.props.addAccount(window.ipcBus, netId, acct);
+  }
+
+  handleUpdate = (netId, acct) => {
+    this.props.updateAccount(window.ipcBus, netId, acct);
+  }
+
+  handleDelete = (netId, acctId) => {
+    this.props.deleteAccount(window.ipcBus, netId, acctId);
+  }
+
+  handleDefault = (netId, acctId) => {
+    this.props.setDefaultAccount(window.ipcBus, netId, acctId);
+  }
+
+  handleAccounts = (netId, acctId) => {
+    console.log("account for: ", netId, acctId)
+    this.props.history.push("/accounts/" + netId + "/" + acctId)
+  }
   componentWillMount() {
-    this.props.getNetworks(window.ipcBus);
+    let netId = this.props.match.params.network;
+    this.props.getAccounts(window.ipcBus, netId);
   }
 
   render() {
@@ -42,7 +72,18 @@ class AccountsPage extends Component<Props> {
     console.log("AccountsPage - networks", this.props.networks)
 
     return (
-      <Accounts network={network}/>
+      <Accounts
+        network={network}
+        accounts={this.props.accounts}
+
+        handleUnlock={this.handleUnlock}
+        handleLock={this.handleLock}
+        handleAdd={this.handleAdd}
+        handleUpdate={this.handleUpdate}
+        handleDelete={this.handleDelete}
+        handleDefault={this.handleDefault}
+        handleAccounts={this.handleAccounts}
+      />
     );
   }
 }

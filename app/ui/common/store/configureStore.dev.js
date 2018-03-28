@@ -8,6 +8,7 @@ import rootReducer from '../reducers';
 
 import * as homeActions from '../../home/actions';
 import * as networksActions from '../../networks/actions';
+import * as accountsActions from '../../accounts/actions';
 
 const history = createHashHistory();
 
@@ -38,6 +39,7 @@ const configureStore = (initialState) => {
   const actionCreators = {
     ...homeActions,
     ...networksActions,
+    ...accountsActions,
     ...routerActions,
   };
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose

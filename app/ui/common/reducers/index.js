@@ -4,12 +4,12 @@ import { routerReducer as router } from 'react-router-redux';
 
 import home from '../../home/reducers';
 import networks from '../../networks/reducers';
-import web3Reducer from './web3';
+import accounts from '../../accounts/reducers';
 
 const rootReducer = combineReducers({
-  web3Reducer,
   home,
   networks,
+  accounts,
   router,
 });
 

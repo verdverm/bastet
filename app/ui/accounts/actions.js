@@ -9,23 +9,48 @@ export function accountsLoaded(results) {
   }
 }
 
-export function listenAccounts(ipcBus) {
+
+export function getAccounts(ipcBus, netId) {
   return (dispatch: (action: actionType) => void, getState: () => null) => {
-    ipcBus.addListener('app/accounts', (ipcBusEvent, accounts) => {
-      dispatch(networksLoaded(accounts));
-    })
+    // ipcBus.send('app/getAccounts', netId)
+
+    ipcBus.request(100, 'app/getAccounts', {netId})
   };
 }
 
-export function unlistenAccounts(ipcBus) {
+export function unlockAccount(ipcBus, netId, acctId) {
   return (dispatch: (action: actionType) => void, getState: () => null) => {
-    ipcBus.removeListener('app/accounts')
+    ipcBus.send('app/unlockAccount', { netId: netId, acctId })
   };
 }
 
-export function getAccounts(ipcBus, network) {
+export function lockAccount(ipcBus, netId, acctId) {
   return (dispatch: (action: actionType) => void, getState: () => null) => {
-    ipcBus.send('app/getNetworkAccounts', network)
+    ipcBus.send('app/lockAccount', { netId, acctId })
+  };
+}
+
+export function addAccount(ipcBus, netId, account) {
+  return (dispatch: (action: actionType) => void, getState: () => null) => {
+    ipcBus.send('app/addAccount', {netId, account})
+  };
+}
+
+export function updateAccount(ipcBus, netId, account) {
+  return (dispatch: (action: actionType) => void, getState: () => null) => {
+    ipcBus.send('app/updateAccount', {netId, account})
+  };
+}
+
+export function deleteAccount(ipcBus, netId, acctId) {
+  return (dispatch: (action: actionType) => void, getState: () => null) => {
+    ipcBus.send('app/deleteAccount', { netId, acctId })
+  };
+}
+
+export function setDefaultAccount(ipcBus, netId, acctId) {
+  return (dispatch: (action: actionType) => void, getState: () => null) => {
+    ipcBus.send('app/setDefaultAccount', { netId, acctId })
   };
 }
 
