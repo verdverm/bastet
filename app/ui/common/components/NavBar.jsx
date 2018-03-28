@@ -30,7 +30,7 @@ export default class NavBar extends Component<Props> {
       isOpen: false
     };
   }
-  toggle() {
+  toggle = () => {
     this.setState({
       isOpen: !this.state.isOpen
     });
@@ -46,7 +46,7 @@ export default class NavBar extends Component<Props> {
           <Collapse isOpen={this.state.isOpen} navbar>
             <Nav className="ml-auto" navbar>
               <NavItem>
-                <Link to="/">Notifications</Link>
+                <Link to="/notifications">Notifications</Link>
               </NavItem>
               <span> - </span>
               <NavItem>
@@ -56,6 +56,35 @@ export default class NavBar extends Component<Props> {
               <NavItem>
                 <Link to="/dapps">Dapps</Link>
               </NavItem>
+							<UncontrolledDropdown nav inNavbar>
+                <DropdownToggle nav caret className={styles.dropdown}>
+                  More
+                </DropdownToggle>
+                <DropdownMenu right>
+                  <DropdownItem>
+                    <Link to="/" className={styles.dropdownHome}>
+                      Home
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem>
+                    <Link to="/" className={styles.dropdownHome}>
+                      Demos (coming soon)
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem>
+                    <Link to="/" className={styles.dropdownHome}>
+                      Wallets (coming soon)
+                    </Link>
+                  </DropdownItem>
+                  <DropdownItem divider />
+                  <DropdownItem>
+                    <Link to="/" className={styles.dropdownHome}>
+                      Mystery Method
+                    </Link>
+                  </DropdownItem>
+                </DropdownMenu>
+              </UncontrolledDropdown>
             </Nav>
           </Collapse>
         </Navbar>

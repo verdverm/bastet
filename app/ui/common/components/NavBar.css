@@ -4,3 +4,14 @@ span {
   margin-right: 3px;
 }
 
+.dropdown {
+  color: white!important;
+  padding-top: 0!important;
+}
+
+.dropdownHome {
+  color: black!important;
+}
+.dropdownHome a {
+  color: black!important;
+}

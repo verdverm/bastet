@@ -10,29 +10,39 @@ type actionType = {
 };
 
 export type stateType = {
-  +request: object
+  +requests: array
 };
 
 const initialState = {
-  request: null,
+  requests: [],
 }
 
-export default function homeReducer(state: stateType = initialState, action: actionType) {
+export default function notifications(state: stateType = initialState, action: actionType) {
   switch (action.type) {
     case PENDING_REQUEST:
+      var newReqs = state.slice();
+      newReqs.push(action.payload)
       return Object.assign({}, state, {
-        request: action.payload,
+        requests: newReqs,
       })
+
     case APPROVE_REQUEST:
+      var newReqs = state.slice();
+      console.log(action)
       return Object.assign({}, state, {
-        request: null,
+        requests: newReqs,
       })
+
     case DENY_REQUEST:
+      var newReqs = state.slice();
+      console.log(action)
       return Object.assign({}, state, {
-        request: null,
+        requests: newReqs,
       })
+
     default:
       return state;
   }
 }
+
 
