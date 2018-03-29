@@ -1,5 +1,9 @@
 import * as Nets from './lib';
 
+// This is basically the API
+// It uses the library
+//   and is consumed by ipc (and eventually others)
+
 export default {
   getNetworks: () => {
     return Nets.getNetworks();

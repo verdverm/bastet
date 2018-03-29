@@ -5,8 +5,10 @@ export function checkOrigin(origin, network, rpcReq) {
   var fail = null;
 
   const dapp = getDappByOrigin(origin);
-  if (dapp && dapp.blocked) {
+  console.log("Checking Dapp Origin - dapp", dapp)
+  if (dapp && dapp.blocked === true) {
     fail = 'Dapp has been blocked';
+    return fail
   }
   if (dapp && dapp.blocked === false) {
     // we have a dapp, and it has been unblocked...

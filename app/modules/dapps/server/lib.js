@@ -31,6 +31,21 @@ export function getDapps() {
   return dapps;
 }
 
+export function getDappById(dappId) {
+  if (dapps === null) {
+    loadDapps();
+  }
+  var dapp = null;
+
+  Object.entries(dapps).map(([id, d]) => {
+    console.log("getDappById", dappId, id, d)
+    if(d.id === dappId) {
+      dapp = d;
+    }
+  })
+  return dapp;
+}
+
 export function getDappByOrigin(origin) {
   if (dapps === null) {
     loadDapps();
@@ -61,6 +76,38 @@ export function updateDapp(dappConfig) {
   saveDapps();
   return getDapps();
 
+}
+
+export function blockDapp(dappId) {
+  if (dapps === null) {
+    loadDapps();
+  }
+
+  var dapp = getDappById(dappId);
+  console.log("blocking", dapp)
+
+  if (dapp) {
+    dapp.blocked = true;
+  }
+
+  saveDapps();
+  return getDapps();
+}
+
+export function unblockDapp(dappId) {
+  if (dapps === null) {
+    loadDapps();
+  }
+
+  var dapp = getDappById(dappId);
+  console.log("unblocking", dapp)
+
+  if (dapp) {
+    dapp.blocked = false;
+  }
+
+  saveDapps();
+  return getDapps();
 }
 
 export function saveDapps() {

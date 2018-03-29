@@ -24,6 +24,14 @@ var accounts;
 class DappsPage extends Component<Props> {
   props: Props;
 
+  handleBlock = (dappId) => {
+    this.props.blockDapp(window.ipcBus, dappId);
+  }
+
+  handleUnblock = (dappId) => {
+    this.props.unblockDapp(window.ipcBus, dappId);
+  }
+
   componentWillMount() {
     this.props.getDapps(window.ipcBus);
   }
@@ -33,7 +41,13 @@ class DappsPage extends Component<Props> {
     console.log("DAPPS", this.props)
 
     return (
-      <Dapps {...this.props}/>
+      <Dapps
+        dapps={this.props.dapps}
+        networks={this.props.networks}
+
+        handleBlock={this.handleBlock}
+        handleUnblock={this.handleUnblock}
+      />
     );
   }
 }

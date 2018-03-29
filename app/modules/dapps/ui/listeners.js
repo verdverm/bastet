@@ -10,7 +10,6 @@ export function dappsLoaded(dapps) {
 export function listenDapps(ipcBus) {
   return (dispatch: (action) => void, getState: () => null) => {
     ipcBus.addListener('app/dapps', (ipcBusEvent, dapps) => {
-      console.log("New Dapps!!!", dapps)
       dispatch(dappsLoaded(dapps));
     })
   };
