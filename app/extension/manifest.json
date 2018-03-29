@@ -1,0 +1,57 @@
+{
+  "manifest_version": 2,
+  "name": "Bastet Extension",
+  "short_name": "Bastet",
+  "version": "0.0.1",
+  "description": "A light-client, browser extension for Bastet and Dapps.",
+  "homepage_url": "https://github.com/verdverm/bastet",
+  "author": "Tony Worm <verdverm@gmail.com",
+
+  "commands": {
+    "_execute_browser_action": {
+      "suggested_key": {
+        "windows": "Alt+Shift+B",
+        "mac": "Alt+Shift+B",
+        "chromeos": "Alt+Shift+B",
+        "linux": "Alt+Shift+B"
+      }
+    }
+  },
+
+  "background": {
+    "scripts": [
+      "scripts/background.js"
+    ],
+    "persistent": true
+  },
+  "browser_action": {
+    "default_icon": "icon.png",
+    "default_title": "Bastet",
+    "default_popup": "views/popup.html"
+  },
+  "content_scripts" : [{
+    "matches": [
+      "file://*/*",
+      "http://*/*",
+      "https://*/*"
+    ],
+    "js": [
+      "scripts/inject-bastet-web3.js"
+    ],
+    "run_at": "document_start"
+  }],
+  "web_accessible_resources": [
+    "scripts/inpage.bundled.js"
+  ],
+  "permissions": [
+    "http://localhost:4545/",
+    "tabs",
+    "activeTab"
+  ],
+  "externally_connectable": {
+    "matches": [
+      "https://*.verdverm.com/*"
+    ]
+  }
+}
+
