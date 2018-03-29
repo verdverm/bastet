@@ -1,7 +1,7 @@
 import uuid from 'uuid';
 
 import { getIpcClient } from '../../../proc/ipc';
-import { addDapp } from '../../../modules/dapps/server/lib';
+import { getDappByOrigin, addDapp } from '../../../modules/dapps/server/lib';
 
 function sleep(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
@@ -10,11 +10,19 @@ function sleep(ms) {
 export function newDappUX(origin, callback) {
   console.log("New Dapp UX")
 
+  const exists = getDappByOrigin(origin);
+  if (exists) {
+    console.log("Dapp exists", exists)
+    return
+  }
   var req = {
     type: 'New Dapp',
     id: uuid(),
     origin,
+    pending: true,
   }
+
+  addDapp(exists)
 
   let ipcBusClient = getIpcClient();
 

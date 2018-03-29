@@ -1,7 +1,10 @@
 export function checkRPC(dapp, network, rpcReq) {
   console.log("Checking Dapp RPC")
 
-  var fail = null;
+  var fail = dapp.blocked ? 'Dapp is blocked' : null;
+  if (fail !== null) {
+    return fail;
+  }
 
   fail = checkNetworkPermissions(dapp, network, rpcReq);
   if (fail !== null) {

@@ -2,8 +2,13 @@ import WebSocket from 'ws';
 import { createServer } from 'http';
 import app from './http'
 
-import intercept from '../rpc/web3-intercept';
-import proxy from '../rpc/web3-proxy';
+import { getDefaultNetwork } from '../../modules/networks/server/lib';
+import { getDappByOrigin } from '../../modules/dapps/server/lib';
+
+import {
+  extractConnInfo, checkConn,
+  checkRPC, handleRPC
+} from './common';
 
 // A HTTP server server
 var server = createServer();
@@ -17,27 +22,55 @@ var wss = new WebSocket.Server({
 
 // handle a websocket connection request
 wss.on('connection', (ws, req) => {
-	console.log("Websocket Connection", ws, req)
+  var connInfo = extractConnInfo(req);
+  console.log("RPC - WS CONN -", connInfo)
 
-  var response = setupNewWssConn(ws);
+  var fail = checkConn(connInfo);
+  if (fail !== null) {
+    var ret = {
+      jsonrpc: '2.0',
+      id: 0,
+    method: '',
+      error: fail,
+    }
+    ws.send(JSON.stringify(ret));
+    return;
+  }
 
-  ws.send(JSON.stringify(response));
+  setupWebsocketHandlers(ws, connInfo.origin);
+
+  var ret = {
+    jsonrpc: '2.0',
+    id: 0,
+    result: 'ok',
+    method: '',
+    error: null,
+  }
+
+  ws.send(JSON.stringify(ret));
 });
 
-function setupNewWssConn(ws) {
+function setupWebsocketHandlers(ws, origin) {
 
-  // Check origin (DApp)
 
   ws.on('message', (message) => {
-    console.log('received: %s', message);
-    var response = {
-      hello: 'apple'
-    }
-    ws.send(JSON.stringify(response));
+
+    var rpcReq = JSON.parse(message);
+    const dapp = getDappByOrigin(origin);
+
+    // TODO Lookup Dapp Network(s)
+    const net = getDefaultNetwork();
+
+    var rpcResult = handleRPC(dapp, net, rpcReq, (err, result) => {
+      var ret = Object.assign(rpcReq, {
+        result,
+        error: err,
+      });
+      console.log("RPC - WS ret -", ret)
+      ws.send(JSON.stringify(ret));
+    })
+
   });
-
-
-  return 'ok'
 
 }
 
