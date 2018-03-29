@@ -26,14 +26,14 @@ class MainPage extends Component<Props> {
   handleApprove = (req) => {
     req.approve = true;
     console.log("HANDLE APPROVE", req)
-    window.ipcBus.send("app/signing-approve:" + req.id, req);
+    window.ipcBus.send("app/notifications:" + req.id, req);
     this.props.approveRequest(req)
   }
 
   handleDeny = (req) => {
     req.approve = false;
     console.log("HANDLE DENY", req)
-    window.ipcBus.send("app/signing-approve:" + req.id, req);
+    window.ipcBus.send("app/notifications:" + req.id, req);
     this.props.denyRequest(req)
   }
 

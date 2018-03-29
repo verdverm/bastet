@@ -10,6 +10,7 @@ import rootReducer from './reducers';
 import * as notificationActions from '../modules/notifications/ui/actions';
 import * as networksActions from '../modules/networks/ui/actions';
 import * as accountsActions from '../modules/accounts/ui/actions';
+import * as dappsActions from '../modules/dapps/ui/actions';
 
 const history = createHashHistory();
 
@@ -41,6 +42,7 @@ const configureStore = (initialState) => {
     ...notificationActions,
     ...networksActions,
     ...accountsActions,
+    ...dappsActions,
     ...routerActions,
   };
   // If Redux DevTools Extension is installed use it, otherwise use Redux compose

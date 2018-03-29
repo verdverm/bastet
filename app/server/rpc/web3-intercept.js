@@ -79,15 +79,15 @@ const methods = {
       let ipcBusClient = getIpcClient();
 
       var req = {
-        type: 'signing request',
+        type: 'Signing Request',
         id: uuid(),
         txParams: reqTxParams,
       }
       ipcBusClient.send("app/notifications", req);
 
-      ipcBusClient.once("app/signing-approve:"+req.id, (ipcBusEvent, resp) => {
+      ipcBusClient.once("app/notifications:"+req.id, (ipcBusEvent, resp) => {
 
-        console.log("Received Response:", ipcBusEvent, resp)
+        console.log("Received Signing Request Response:", ipcBusEvent, resp)
         let { id, txParams, approve } = resp;
 
         if (approve === false) {

@@ -5,7 +5,7 @@ export default {
     return Accts.getAccounts(netId);
   },
   getAccount: (netId, acctId) => {
-    return Accts.getAccount(netId), acctId;
+    return Accts.getAccount(netId, acctId);
   },
   unlockAccount: (netId, acctId) => {
     return Accts.unlockAccount(netId, acctId);

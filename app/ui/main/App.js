@@ -32,6 +32,7 @@ class App extends React.Component<Props> {
       this.props.listenNotifications(window.ipcBus);
       this.props.listenNetworks(window.ipcBus);
       this.props.listenAccounts(window.ipcBus);
+      this.props.listenDapps(window.ipcBus);
     });
   }
 

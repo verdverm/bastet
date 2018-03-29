@@ -69,12 +69,14 @@ class AccountsPage extends Component<Props> {
       }
     }
 
+    let accounts = this.props.accounts[networkId];
+
     console.log("AccountsPage - networks", this.props.networks)
 
     return (
       <Accounts
         network={network}
-        accounts={this.props.accounts}
+        accounts={accounts}
 
         handleUnlock={this.handleUnlock}
         handleLock={this.handleLock}

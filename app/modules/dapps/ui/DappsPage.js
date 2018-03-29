@@ -4,17 +4,19 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 
 import Dapps from './Dapps';
+import * as Actions from './actions';
 
 type Props = {};
 
 function mapStateToProps(state) {
   return {
-    web3s: state.web3Reducer
+    networks: state.networks.networks,
+    dapps: state.dapps.dapps,
   };
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(() => {}, dispatch);
+  return bindActionCreators(Actions, dispatch);
 }
 
 var accounts;
@@ -22,12 +24,18 @@ var accounts;
 class DappsPage extends Component<Props> {
   props: Props;
 
+  componentWillMount() {
+    this.props.getDapps(window.ipcBus);
+  }
+
   render() {
 
+    console.log("DAPPS", this.props)
+
     return (
-      <Dapps />
+      <Dapps {...this.props}/>
     );
   }
 }
 
-export default connect(mapStateToProps, null)(DappsPage);
+export default connect(mapStateToProps, mapDispatchToProps)(DappsPage);

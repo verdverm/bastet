@@ -4,8 +4,10 @@ import {
   Button, ListGroupItem, ListGroupItemHeading, ListGroupItemText,
 } from 'reactstrap';
 
-import TxView from './TxView';
 import styles from './styles.css';
+
+import TxView from './TxView';
+import DappView from './DappView';
 
 type Props = {};
 
@@ -29,6 +31,8 @@ export default class PendingItem extends Component<Props> {
 
     let { pending, handleApprove, handleDeny } = this.props;
 
+    console.log("Pending:", pending)
+
     return (
       <ListGroupItem className={styles.listGroup}>
         <ListGroupItemHeading className={styles.listItemHeading}>
@@ -40,7 +44,12 @@ export default class PendingItem extends Component<Props> {
           </span>
         </ListGroupItemHeading>
         <ListGroupItemText className={styles.listItemText}>
-          <TxView tx={pending} />
+          { pending.type === 'Signing Request' &&
+            <TxView tx={pending} />
+          }
+          { pending.type === 'New Dapp' &&
+            <DappView dapp={pending} />
+          }
         </ListGroupItemText>
       </ListGroupItem>
     );

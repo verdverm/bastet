@@ -114,6 +114,7 @@ export function disconnectNetwork(id) {
 
   if (net !== undefined) {
     networks[id].connected = false
+    delete networks[id].web3;
   }
 
   saveNetworks();
@@ -231,6 +232,7 @@ function determineNetworkConnectionType(location) {
 }
 
 function createWeb3(network) {
+
   if (network.type === 'http' || network.type === 'https') {
     var provider = new Web3.providers.HttpProvider(network.location)
     network.web3 = new Web3(provider);
@@ -248,7 +250,6 @@ function createWeb3(network) {
     network.web3 = new Web3(provider);
     return
   }
-
 
 }
 

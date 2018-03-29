@@ -26,15 +26,12 @@ export default class Accounts extends Component<Props> {
     }
 
     var error = null;
-
-    if (accounts.error) {
+    if (accounts === undefined || accounts === null) {
+      accounts = {};
+    } else if (accounts.error) {
       error = accounts.error;
-      accounts = [];
-    } else if (accounts === undefined || accounts === null) {
-      accounts = [];
+      accounts = {};
     }
-
-    const defaultAccount = accounts.filter((acct) => acct.default)
 
     return (
       <Container>
@@ -62,14 +59,11 @@ export default class Accounts extends Component<Props> {
         <Row>
           <Col>
             <ListGroup>
-              { defaultAccount && (
-              <AccountItem key={defaultAccount.id} account={defaultAccount} {...this.props} />
-              )}
-            {accounts.map( (account) => {
-              if (account.default === true) { return }
-              const localAccount = account;
+            {Object.entries(accounts).map( ([id, acct]) => {
+              const localId = id;
+              const localAcct = acct;
               return (
-                <AccountItem key={localAccount.id} account={localAccount} {...this.props} />
+                <AccountItem key={localAcct.id} account={localAcct} {...this.props} />
               )}
             )}
             </ListGroup>

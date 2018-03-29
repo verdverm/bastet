@@ -6,11 +6,11 @@ type actionType = {
 };
 
 export type accountsStateType = {
-  +accounts: array
+  +accounts: object
 };
 
 const initialState = {
-  accounts: [],
+  accounts: {},
 }
 
 export default function accounts(state: accountsStateType = initialState, action: actionType) {

@@ -4,8 +4,10 @@ import {
   Button, ListGroupItem, ListGroupItemHeading, ListGroupItemText,
 } from 'reactstrap';
 
-import TxView from './TxView';
 import styles from './styles.css';
+
+import TxView from './TxView';
+import DappView from './DappView';
 
 type Props = {};
 
@@ -47,7 +49,11 @@ export default class HistoryItem extends Component<Props> {
         </ListGroupItemHeading>
         <ListGroupItemText className={styles.listItemText}>
           {this.state.dropdownOpen ?
-            <TxView tx={notification} />
+            ( notification.type === 'Signing Request' ?
+                <TxView tx={notification} />
+              :
+                <DappView dapp={notification} />
+            )
             :
             <span>ID: {notification.id}</span>
           }
