@@ -32,6 +32,7 @@ export function newDappUX(origin, callback) {
 
     console.log("Received New Dapp Response:", ipcBusEvent, resp)
     let { approve } = resp;
+    dappConfig.pending = false;
 
     if (approve === false) {
       console.log("DENIED !!!")

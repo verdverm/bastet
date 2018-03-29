@@ -45,6 +45,15 @@ app.post('/', function(req, res) {
   // TODO Lookup Dapp Network(s)
   const net = getDefaultNetwork();
 
+  fail = checkRPC(dapp, net, rpcReq)
+  if (fail !== null) {
+    var ret = Object.assign(rpcReq, {
+      error: fail,
+    });
+    console.log("RPC - WS Err ret -", ret)
+    return res.json(ret);
+  }
+
   handleRPC(dapp, net, rpcReq, (err, result) => {
     var ret = Object.assign(rpcReq, {
       result,

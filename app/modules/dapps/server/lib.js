@@ -84,10 +84,10 @@ export function blockDapp(dappId) {
   }
 
   var dapp = getDappById(dappId);
-  console.log("blocking", dapp)
 
   if (dapp) {
     dapp.blocked = true;
+    console.log("blocking", dapp)
   }
 
   saveDapps();
@@ -100,10 +100,10 @@ export function unblockDapp(dappId) {
   }
 
   var dapp = getDappById(dappId);
-  console.log("unblocking", dapp)
 
   if (dapp) {
     dapp.blocked = false;
+    console.log("unblocking", dapp)
   }
 
   saveDapps();

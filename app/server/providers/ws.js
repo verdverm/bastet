@@ -55,13 +55,25 @@ function setupWebsocketHandlers(ws, origin) {
 
   ws.on('message', (message) => {
 
+    console.log("ws message from", origin)
     var rpcReq = JSON.parse(message);
-    const dapp = getDappByOrigin(origin);
+    var dapp = getDappByOrigin(origin);
 
     // TODO Lookup Dapp Network(s)
     const net = getDefaultNetwork();
 
-    var rpcResult = handleRPC(dapp, net, rpcReq, (err, result) => {
+    var fail = checkRPC(dapp, net, rpcReq)
+    if (fail !== null) {
+      var ret = Object.assign(rpcReq, {
+        error: fail,
+      });
+      console.log("RPC - WS Err ret -", ret)
+      ws.send(JSON.stringify(ret));
+      return
+    }
+
+    handleRPC(dapp, net, rpcReq, (err, result) => {
+      console.log("ws response to", origin, result, err)
       var ret = Object.assign(rpcReq, {
         result,
         error: err,

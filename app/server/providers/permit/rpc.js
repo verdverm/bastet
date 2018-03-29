@@ -1,7 +1,7 @@
 export function checkRPC(dapp, network, rpcReq) {
   console.log("Checking Dapp RPC")
 
-  var fail = dapp.blocked ? 'Dapp is blocked' : null;
+  var fail = dapp.blocked ? 'origin is blocked' : null;
   if (fail !== null) {
     return fail;
   }
