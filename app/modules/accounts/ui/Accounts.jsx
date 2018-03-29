@@ -39,17 +39,25 @@ export default class Accounts extends Component<Props> {
     return (
       <Container>
         <Row>
-          <h2>{title}</h2>
+          <Col xs='10'>
+            <h2>{title}</h2>
+          </Col>
+          <Col xs='2'>
+            <Button color='white' className={styles.optionsButton}>Refresh</Button>
+          </Col>
         </Row>
         <Row>
-          <Col>
-          <h4>{error}</h4>
+          <Col xs='10'>
+            <h4>{error}</h4>
           </Col>
-          <Col>
+          <Col xs='2'>
             <AddAccountModal
               handleSave={this.props.handleAdd}
             />
           </Col>
+        </Row>
+        <Row>
+          <br />
         </Row>
         <Row>
           <Col>

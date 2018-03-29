@@ -4,11 +4,11 @@ import { bindActionCreators } from 'redux';
 import { connect } from 'react-redux';
 import { withRouter  } from 'react-router'
 
-import NavBar from '../components/NavBar';
+import NavBar from './NavBar';
 
-import { initIpc } from '../../ipc';
+import { initIpc } from '../ipc';
 
-import * as Actions from '../actions/listeners';
+import * as Listeners from '../listeners';
 
 
 type Props = {
@@ -20,7 +20,7 @@ function mapStateToProps(state) {
 }
 
 function mapDispatchToProps(dispatch) {
-  return bindActionCreators(Actions, dispatch);
+  return bindActionCreators(Listeners, dispatch);
 }
 
 

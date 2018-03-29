@@ -2,10 +2,8 @@
 import React from 'react';
 import { Switch, Route } from 'react-router';
 
-import App from './common/containers/App';
-
+import App from './main/App';
 import HomePage from './home/HomePage';
-
 import NotificationsPage from '../modules/notifications/ui/MainPage';
 import NetworksPage from '../modules/networks/ui/NetworksPage';
 import AccountsPage from '../modules/accounts/ui/AccountsPage';

@@ -5,15 +5,15 @@ import { createHashHistory } from 'history';
 import { routerMiddleware, routerActions } from 'react-router-redux';
 import { createLogger } from 'redux-logger';
 
-import rootReducer from '../reducers';
+import rootReducer from './reducers';
 
-import * as notificationActions from '../../../modules/notifications/ui/actions';
-import * as networksActions from '../../../modules/networks/ui/actions';
-import * as accountsActions from '../../../modules/accounts/ui/actions';
+import * as notificationActions from '../modules/notifications/ui/actions';
+import * as networksActions from '../modules/networks/ui/actions';
+import * as accountsActions from '../modules/accounts/ui/actions';
 
 const history = createHashHistory();
 
-function configureStore(initialState) {
+const configureStore = (initialState) => {
   // Redux Configuration
   const middleware = [];
   const enhancers = [];
@@ -58,7 +58,14 @@ function configureStore(initialState) {
   const enhancer = composeEnhancers(...enhancers);
 
   // Create Store
-  return createStore(rootReducer, initialState, enhancer);
-}
+  const store = createStore(rootReducer, initialState, enhancer);
+
+  if (module.hot) {
+    module.hot.accept('./reducers', () =>
+      store.replaceReducer(require('./reducers'))); // eslint-disable-line global-require
+  }
+
+  return store;
+};
 
 export default { configureStore, history };
