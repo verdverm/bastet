@@ -10,7 +10,7 @@
     "build-renderer": "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.renderer.prod.js --colors",
     "build-preload-ui": "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.preload-ui.js --colors",
     "build-preload-broker": "cross-env NODE_ENV=production node --trace-warnings -r babel-register ./node_modules/webpack/bin/webpack --config webpack.config.preload-broker.js --colors",
-    "build-extension": "cd app && browserify -d -r web3 -o extension/scripts/inpage.bundled.js extension/scripts/inpage.js",
+    "build-extension": "cd app && browserify -d -r web3 -o extension/scripts/inpage.bundled.js extension/scripts/inpage.js && browserify -d -r extensionizer -o extension/scripts/background.bundled.js extension/scripts/background.js",
     "build-preload": "browserify -o app/BundledBrowserWindowPreload.js -x electron app/proc/BrowserWindowPreload.js",
     "dev": "cross-env START_HOT=1 node -r babel-register ./internals/scripts/CheckPortInUse.js && cross-env START_HOT=1 npm run start-renderer-dev",
     "electron-rebuild": "electron-rebuild --parallel --force --types prod,dev,optional --module-dir app",

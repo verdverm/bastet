@@ -20,7 +20,7 @@
 
   "background": {
     "scripts": [
-      "scripts/background.js"
+      "scripts/background.bundled.js"
     ],
     "persistent": true
   },
@@ -47,11 +47,6 @@
     "http://localhost:4545/",
     "tabs",
     "activeTab"
-  ],
-  "externally_connectable": {
-    "matches": [
-      "https://*.verdverm.com/*"
-    ]
   }
 }
 

@@ -54,3 +54,4 @@ app/BundledBrowserWindowPreload.js
 app/proc/BundledBrowserWindowPreload.js
 bundled.js
 bundled.js.map
+app/extension/scripts/background.bundled.js

@@ -1,3 +1,3 @@
-/* globals chrome */
+const extension = require('extensionizer');
 
-chrome.browserAction.onClicked.addListener(tab => chrome.tabs.executeScript(tab.ib, {file: 'scripts/inject-bastet-web3.js'}))
+extension.browserAction.onClicked.addListener(tab => extension.tabs.executeScript(tab.ib, {file: 'scripts/inject-bastet-web3.js'}))
