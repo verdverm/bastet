@@ -20,6 +20,7 @@ export function getAccounts(ipcBus, netId) {
 
 export function unlockAccount(ipcBus, netId, acctId) {
   return (dispatch: (action: actionType) => void, getState: () => null) => {
+    console.log("Unlock - UI action", netId, acctId)
     ipcBus.send('app/unlockAccount', { netId: netId, acctId })
   };
 }

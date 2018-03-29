@@ -28,7 +28,7 @@ export default class AccountItem extends Component<Props> {
   render() {
 
     let {
-      account,
+      account, network,
       handleUnlock, handleLock,
       handleEdit, handleDelete, handleDefault,
     } = this.props;
@@ -48,27 +48,30 @@ export default class AccountItem extends Component<Props> {
 						<DropdownMenu>
 
               <DropdownItem
-                onClick={() => {handleDefault(account.id)} }
               >
                 Make Default
               </DropdownItem>
 
               <DropdownItem
-                onClick={() => {handleAccounts(account.id)} }
+                onClick={() => {handleDetails(account.id)} }
               >
-                Accounts
+                Details
               </DropdownItem>
 
               <DropdownItem
-                onClick={() => {handleEdit(account)} }
+                onClick={() => {handleEdit(network.id, account)} }
               >
                 Edit
               </DropdownItem>
 
-							<DropdownItem divider />
+              <DropdownItem
+                onClick={() => { account.unlocked ? handleLock(network.id, account.id) : handleUnlock(network.id, account.id)} }
+              >
+                {account.unlocked ? 'Lock' : 'Unlock'}
+              </DropdownItem>
 
               <DropdownItem
-                onClick={() => {handleDelete(account.id)} }
+                onClick={() => {handleDelete(network.id, account.id)} }
               >
                 Delete
               </DropdownItem>

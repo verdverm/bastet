@@ -43,6 +43,10 @@ export function getAccounts(netId) {
     loadAccounts();
   }
 
+  if (netId === undefined) {
+    return accounts;
+  }
+
   var net = accounts[netId];
   if (net === undefined) {
     console.log("Refreshing accounts for", netId)
@@ -123,32 +127,6 @@ export function addAccount(config) {
   return getAccounts();
 }
 
-export function unlockAccount(netId, acctId) {
-  console.log("Unlocking", netId, acctId)
-  var net = accounts[netId];
-
-  if (net !== undefined) {
-    var acct = net[acctId];
-    doUnlockAccount(netId, acct)
-    saveAccounts();
-  }
-
-  return getAccounts();
-}
-
-export function lockAccount(netId, acctId) {
-  console.log("Locking", netId, acctId)
-  var net = accounts[netId];
-
-  if (net !== undefined) {
-    var acct = net[acctId];
-    doLockAccount(netId, acct)
-    saveAccounts();
-  }
-
-  return getAccounts();
-}
-
 export function updateAccount(net) {
   net.type = determineAccountConnectionType(net.location)
   var curr = accounts[net.id]
@@ -200,7 +178,38 @@ export function loadAccounts() {
 
 }
 
+export function unlockAccount(netId, acctId) {
+  var net = accounts[netId];
+
+  if (net !== undefined) {
+    console.log("Unlock - LIB", netId, acctId, net)
+    var acct = net.filter(a => a.id === acctId)[0];
+    doUnlockAccount(netId, acct)
+    saveAccounts();
+  }
+
+  return getAccounts();
+}
+
+export function lockAccount(netId, acctId) {
+  var net = accounts[netId];
+
+  if (net !== undefined) {
+    console.log("Locking", netId, acctId, net)
+    var acct = net.filter(a => a.id === acctId)[0];
+    doLockAccount(netId, acct)
+    saveAccounts();
+  }
+
+  return getAccounts();
+}
+
 function doUnlockAccount(netId, acct) {
+  console.log("Unlock - DO ", netId, acct)
+  if (acct === undefined) {
+    return
+  }
+
   // unlock against it's network
   const network = getNetworkWithWeb3(netId);
   // ...
@@ -210,6 +219,10 @@ function doUnlockAccount(netId, acct) {
 }
 
 function doLockAccount(netId, acct) {
+  if (acct === undefined) {
+    return
+  }
+
   // lock against it's network
   const network = getNetworkWithWeb3(netId);
   // ...

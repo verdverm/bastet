@@ -8,6 +8,7 @@ export default {
     return Accts.getAccount(netId, acctId);
   },
   unlockAccount: (netId, acctId) => {
+    console.log("Unlock - RPC", netId, acctId);
     return Accts.unlockAccount(netId, acctId);
   },
   lockAccount: (netId, acctId) => {

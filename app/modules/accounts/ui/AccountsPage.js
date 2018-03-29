@@ -46,10 +46,6 @@ class AccountsPage extends Component<Props> {
     this.props.setDefaultAccount(window.ipcBus, netId, acctId);
   }
 
-  handleAccounts = (netId, acctId) => {
-    console.log("account for: ", netId, acctId)
-    this.props.history.push("/accounts/" + netId + "/" + acctId)
-  }
   componentWillMount() {
     let netId = this.props.match.params.network;
     this.props.getAccounts(window.ipcBus, netId);

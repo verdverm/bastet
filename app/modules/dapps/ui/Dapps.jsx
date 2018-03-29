@@ -18,7 +18,6 @@ export default class Dapps extends Component<Props> {
   render() {
 
     let { dapps } = this.props
-    console.log("DappView", dapps)
 
     if (dapps === undefined || dapps === null) {
       dapps = {};
@@ -34,7 +33,6 @@ export default class Dapps extends Component<Props> {
             {Object.entries(dapps).map( ([id, dapp]) => {
               const localId = id;
               const localDapp = dapp;
-              console.log("Dapp:", dapp)
               return (
                 <DappItem key={localDapp.origin} dapp={localDapp} {...this.props} />
               )}

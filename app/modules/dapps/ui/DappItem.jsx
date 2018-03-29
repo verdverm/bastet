@@ -28,13 +28,15 @@ export default class DappItem extends Component<Props> {
   render() {
 
     let {
-      dapp,
+      dapp, handleDetails,
+      handleEdit, handleDelete,
+      handleUnblock, handleBlock,
     } = this.props;
 
     return (
       <ListGroupItem className={styles.listGroup}>
         <ListGroupItemHeading className={styles.listItemHeading}>
-          {dapp.origin} {dapp.blocked ? '(blocked)' : '(permitted)'}
+          {dapp.origin} {dapp.dangerous ? '(DANGEROUS, perminently blocked)' : dapp.blocked ? '(blocked)' : '(permitted)'}
           <ButtonDropdown
             isOpen={this.state.dropdownOpen}
             toggle={this.toggle}
@@ -46,15 +48,9 @@ export default class DappItem extends Component<Props> {
 						<DropdownMenu>
 
               <DropdownItem
-                onClick={() => {handleDefault(dapp.origin)} }
+                onClick={() => {handleDetails(dapp.id)} }
               >
-                Make Default
-              </DropdownItem>
-
-              <DropdownItem
-                onClick={() => {handleAccounts(dapp.origin)} }
-              >
-                Accounts
+                Details
               </DropdownItem>
 
               <DropdownItem
@@ -63,10 +59,15 @@ export default class DappItem extends Component<Props> {
                 Edit
               </DropdownItem>
 
-							<DropdownItem divider />
+              <DropdownItem
+                onClick={() => { dapp.blocked ? handleUnblock(dapp.id) : handleBlock(dapp.id)} }
+                disabled={dapp.dangerous ? true : false}
+              >
+                {dapp.blocked ? 'Unblock' : 'Block'}
+              </DropdownItem>
 
               <DropdownItem
-                onClick={() => {handleDelete(dapp.origin)} }
+                onClick={() => {handleDelete(dapp.id)} }
               >
                 Delete
               </DropdownItem>
@@ -75,7 +76,6 @@ export default class DappItem extends Component<Props> {
 
         </ListGroupItemHeading>
         <ListGroupItemText className={styles.listItemText}>
-          details...
         </ListGroupItemText>
       </ListGroupItem>
     );

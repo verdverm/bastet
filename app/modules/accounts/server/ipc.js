@@ -14,12 +14,13 @@ export function addListeners(ipcBus) {
   });
 
   ipcBus.addListener('app/unlockAccount', (ipcBusEvent, payload) => {
-    var accounts = Accts.unlockAccount(payload.netId, payoad.acctId);
+    console.log("Unlock - IPC", payload)
+    var accounts = Accts.unlockAccount(payload.netId, payload.acctId);
     ipcBus.send('app/accounts', accounts);
   });
 
   ipcBus.addListener('app/lockAccount', (ipcBusEvent, payload) => {
-    var accounts = Accts.lockAccount(payload.netId, payoad.acctId);
+    var accounts = Accts.lockAccount(payload.netId, payload.acctId);
     ipcBus.send('app/accounts', accounts);
   });
 
